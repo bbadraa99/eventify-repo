@@ -1,0 +1,83 @@
+.container {
+    padding: 0 2rem;
+  }
+  
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  
+.logo {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+.loginButton {
+    background-color: transparent;
+    border: 1px solid #000;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: auto; 
+  }
+  
+.main {
+    padding: 5rem 0;
+    text-align: center;
+  }
+  
+.title {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+.card {
+  background: #fafaf7;
+  margin: 15px;
+  padding: 1rem;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+  text-align: left;
+  max-width: 300px;
+}
+
+.cardTitle {
+  font-size: 22px;
+  font-weight: 650;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+  
+.cardImage {
+    max-width: 100%;
+    border-radius: 10px 10px 0 0;
+  }
+
+.getStartedButton:hover {
+    background-color: #005bb5;
+  }
+
+.getStartedLink {
+    background-color: #4747ff;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+  

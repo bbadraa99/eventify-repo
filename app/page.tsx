@@ -1,11 +1,19 @@
-import Image from "next/image";
-import FirstPage from "./components/FirstPage";
+import React from 'react';
+import Header from './components/Header';
+import EventGrid from './components/EventGrid';
+import styles from './styles/Home.module.css';
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
-    <div>
-      <FirstPage/> 
+    <div className={styles.container}>
+      <Header />
+      <main className={styles.main}>
+        <h1 className={styles.title}>Event templates that you can use to create your own</h1>
+        <EventGrid />
+      </main>
     </div>
-    
   );
-}
+};
+
+export default Home;
+
