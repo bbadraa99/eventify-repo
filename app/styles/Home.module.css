@@ -1,5 +1,6 @@
 .container {
     padding: 0 2rem;
+    background-color: #fafaf7;
   }
   
 .header {
@@ -10,9 +11,22 @@
   }
   
 .logo {
-    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-decoration: none;
     font-weight: bold;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    font-size: 1.25rem;
   }
+
+.logoImage {
+  max-height: 50px;
+  max-width: 50px;
+}
+
   
 .loginButton {
     background-color: transparent;
@@ -24,7 +38,7 @@
   }
   
 .main {
-    padding: 5rem 0;
+    padding: 4rem 0;
     text-align: center;
   }
   
@@ -41,9 +55,9 @@
   }
   
 .card {
-  background: #fafaf7;
+  background: #fff;
   margin: 15px;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   border: 1px solid #eaeaea;
   border-radius: 20px;
   text-align: left;
@@ -52,7 +66,7 @@
 
 .cardTitle {
   font-size: 22px;
-  font-weight: 650;
+  font-weight: 550;
   margin-top: 10px;
   margin-bottom: 5px;
 }
@@ -62,7 +76,7 @@
     border-radius: 10px 10px 0 0;
   }
 
-.getStartedButton:hover {
+.getStartedLink:hover {
     background-color: #005bb5;
   }
 

@@ -33,6 +33,7 @@ const Checklist = () => {
               <input
                 type="checkbox"
                 checked={task.completed}
+                className={styles.checkbox}
                 onChange={() => handleCheckboxChange(task.id)}
               />
               {task.text}
@@ -41,7 +42,7 @@ const Checklist = () => {
           </li>
         ))}
       </ul>
-      <button className={styles.proceedButton}>Proceed</button>
+      <button className={styles.proceedButton}>Create</button>
     </div>
     </div>
   );

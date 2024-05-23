@@ -15,9 +15,10 @@ const EventCard: React.FC<EventCardProps> = ({ title, description, imageSrc }) =
         <Image src={imageSrc} alt={title} className={styles.cardImage} width={300} height={250} />
         <h3 className={styles.cardTitle}>{title}</h3>
         <p>{description}</p>
-        <div className={styles.getStartedLink}>
-          <Link href="/createEvent">Get Started</Link>
-        </div>
+        
+        <Link href="/createEvent">
+          <button className={styles.getStartedLink}>Get Started</button>
+        </Link> 
     </div>
   );
 };

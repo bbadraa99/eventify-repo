@@ -35,9 +35,10 @@ const CreateEvent: React.FC = () => {
               <label htmlFor="date">Date</label>
               <input type="date" id="date" name="date" />
             </div>
-            <div className={styles.createLink}>
-              <Link href="/checklist">Create</Link>
-            </div>
+            
+            <Link href="/checklist">
+              <button className={styles.createLink}>Continue</button>
+            </Link>
           </form>
           <div className={styles.imageContainer}>
             <Image src="/images/create-page.jpg" alt="Event illustration" width={450} height={300} />

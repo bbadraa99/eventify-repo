@@ -88,7 +88,7 @@
     margin-bottom: 10px;
   }
 
-  .createLink {
+.createLink {
     background-color: #4747ff;
     border: none;
     color: white;
@@ -101,5 +101,9 @@
     margin-right: auto;
     display: flex;
     justify-content: center;
+}
+
+.createLink:hover {
+  background-color: #005bb5;
 }
   
