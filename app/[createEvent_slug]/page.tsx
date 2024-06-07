@@ -11,6 +11,7 @@ import { EventFormData } from '../components/EventForm';
 import Checklist from '../checklist/page';
 import { templates } from '../eventTemplate';
 import Info from '../info/page';
+import InvitePage from '../invite/page';
 
 export interface EventData {
   title: string,
@@ -50,13 +51,14 @@ const CreateEvent: React.FC = () => {
   }
 
   function handleChecklistCreate(){
-    setEvent("info")
+    setEvent("invite")
   }
 
   return(
     <div>
       {event === "form" && <EventForm handleClick = {handleFormSubmission}></EventForm>}
       {event === "checklist" && <Checklist handleClick = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
+      {event === "invite" && <InvitePage></InvitePage>}
       {event === "info" && <Info></Info>}
     </div>
 
