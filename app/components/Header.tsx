@@ -30,7 +30,9 @@ const Header: React.FC = () => {
         <Image src={logoImg} alt="e logo" className={styles.logoImage} priority />
         <span className={styles.logoText}>ventify</span>
       </Link>
-      <button className={styles.loginButton}>Log In</button>
+      <Link href="/sign-in">
+        <button className={styles.loginButton}>Log In</button>
+      </Link>
     </header>
   );
 };

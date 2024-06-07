@@ -30,7 +30,7 @@ const SigninPage: React.FC = () => {
 
   useEffect(() => {
       if (user) {
-          router.push('/home');
+          router.push('/');
       }
   }, [user, router]);
 
