@@ -56,11 +56,14 @@ const Header: React.FC = () => {
         <Image src={logoImg} alt="e logo" className={styles.logoImage} priority />
         <span className={styles.logoText}>ventify</span>
       </Link>
-      { user? <Link href="/sign-in">
-        <button className={styles.loginButton}>Sign In</button>
-      </Link> : 
-        <button className={styles.loginButton} onClick={handleSignOut}>Sign Out</button>
-
+      { user? 
+        <div className='flex flex-row center space-x-4'> 
+          <p className='regular-16'>{user.email}</p> 
+          <Link href="/sign-in">
+            <button className={styles.loginButton}>Sign Out</button>
+          </Link> 
+        </div> : 
+        <button className={styles.loginButton} onClick={handleSignOut}>Sign In</button>
       }
       
     </header>
