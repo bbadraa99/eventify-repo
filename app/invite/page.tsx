@@ -6,10 +6,16 @@ const InvitePage = () => {
 
     const [isInvite, setIsInvite] = useState(false);
 
-    const handleInvite = () => {
+
+    const openInvite = () => {
         setIsInvite(true);
     }
+
     const handleClose = () => {
+        setIsInvite(false);
+    }
+
+    const handleInvite = () => {
         setIsInvite(false);
     }
   return (
@@ -62,7 +68,7 @@ const InvitePage = () => {
                         </tbody>
                     </table>
                 </div>
-                <button className='btn bold-18 bg-background-10' onClick={handleInvite}>Invite a new guest</button>
+                <button className='btn bold-18 bg-background-10 text-black hover:text-background-10' onClick={openInvite}>Invite a new guest</button>
             </div>
         </div>
         
@@ -78,8 +84,8 @@ const InvitePage = () => {
                     <input type="text" className="grow" placeholder="Email" />
                 </label>
                 <div className='flex felx-row space-x-4'>
-                    <button className='btn regular-20 w-1/2 bg-background-10 text-black hover:text-gray-300 '>Close</button>
-                    <button className='btn bold-20 w-1/2 bg-background-10 text-black hover:text-white hover:bg-green-50'>Invite</button>
+                    <button className='btn regular-20 w-1/2 bg-background-10 text-black hover:text-gray-300' onClick={handleClose}>Close</button>
+                    <button className='btn bold-20 w-1/2 bg-background-10 text-black hover:text-white hover:bg-green-50' onClick={handleInvite}>Invite</button>
                 </div>
                 
                 
