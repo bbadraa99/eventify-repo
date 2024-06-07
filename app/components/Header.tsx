@@ -6,8 +6,34 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import logoImg from '@/public/images/logo.png';
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/app/firebase/config";
+import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+
 const Header: React.FC = () => {
+
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+
+  useEffect(() => {
+      if (!user) {
+          router.push('/');
+      }
+  }, [user, router]);
+
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleSignOut = () => {
+    signOut(auth)
+    .then(() => {
+        sessionStorage.removeItem('user');
+        router.push('/'); 
+    })
+    .catch((error) => {
+        console.error("Sign out error", error);
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,9 +56,13 @@ const Header: React.FC = () => {
         <Image src={logoImg} alt="e logo" className={styles.logoImage} priority />
         <span className={styles.logoText}>ventify</span>
       </Link>
-      <Link href="/sign-in">
-        <button className={styles.loginButton}>Log In</button>
-      </Link>
+      { user? <Link href="/sign-in">
+        <button className={styles.loginButton}>Sign In</button>
+      </Link> : 
+        <button className={styles.loginButton} onClick={handleSignOut}>Sign Out</button>
+
+      }
+      
     </header>
   );
 };
