@@ -16,24 +16,24 @@ const CreateEvent: React.FC = () => {
           <form className={styles.form}>
             <div className={styles.field}>
               <label htmlFor="name">Your name</label>
-              <input type="text" id="name" name="name" />
+              <input className={styles.textarea} type="text" id="name" name="name" />
             </div>
             <div className={styles.field}>
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" name="email" />
+              <input className={styles.textarea} type="email" id="email" name="email" />
             </div>
             <h2 className={styles.subtitle}>Event information</h2>
             <div className={styles.field}>
               <label htmlFor="eventName">Event name</label>
-              <input type="text" id="eventName" name="eventName" />
+              <input className={styles.textarea} type="text" id="eventName" name="eventName" />
             </div>
             <div className={styles.field}>
               <label htmlFor="eventDescription">Event description</label>
-              <textarea id="eventDescription" name="eventDescription" />
+              <textarea className={styles.textarea} id="eventDescription" name="eventDescription" />
             </div>
             <div className={styles.field}>
               <label htmlFor="date">Date</label>
-              <input type="date" id="date" name="date" />
+              <input className={styles.textarea} type="date" id="date" name="date" />
             </div>
             
             <Link href="/checklist">

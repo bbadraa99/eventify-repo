@@ -1,6 +1,7 @@
 /* styles/CreateEvent.module.css */
 .container {
     padding: 0 2rem;
+    background-color: #f0f0eb;
 }
 
 .mainContainer {
@@ -56,6 +57,10 @@
   
   .field textarea {
     resize: vertical;
+  }
+
+  .textarea {
+    background-color: #fff;
   }
   
   .button {
