@@ -1,17 +1,18 @@
 import React from 'react';
 import EventCard from './EventCard';
 import styles from '../styles/Home.module.css';
-import { events } from '@/app/eventTemplate';
+import { templates } from '@/app/eventTemplate';
 
 const EventGrid: React.FC = () => {
   return (
     <div className={styles.grid}>
-      {events.map((event, index) => (
+      {templates.map((template, index) => (
         <EventCard
           key={index}
-          title={event.title}
-          description={event.description}
-          imageSrc={event.imageSrc}
+          template_id={template.id}
+          title={template.title}
+          description={template.description}
+          imageSrc={template.imageSrc}
         />
       ))}
     </div>

@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import React, { useState } from 'react';
 import styles from './checklist.module.css';
 
-const Checklist = () => {
+const Checklist = ({}) => {
   const [tasks, setTasks] = useState([
     { id: 1, text: 'Make a guest list', completed: false, showMenu: false },
     { id: 2, text: 'Send invitations', completed: false, showMenu: false },

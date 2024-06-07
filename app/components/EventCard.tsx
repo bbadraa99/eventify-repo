@@ -9,15 +9,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 
 interface EventCardProps {
+  template_id: number; 
   title: string;
   description: string;
   imageSrc: string;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ title, description, imageSrc }) => {
+const EventCard: React.FC<EventCardProps> = ({ template_id, title, description, imageSrc }) => {
   const [user] = useAuthState(auth);
-  // const router = useRouter();
-  console.log(user)
+  // console.log(user)
 
   return (
       <div className={styles.card}>
@@ -25,7 +25,7 @@ const EventCard: React.FC<EventCardProps> = ({ title, description, imageSrc }) =
         <h3 className={styles.cardTitle}>{title}</h3>
         <p>{description}</p>
         
-        <Link href={user ? "/createEvent" : "/sign-in"}>
+        <Link href={user ? `/createEvent_${template_id}` : "/sign-in"}>
           <button className={styles.getStartedLink}>Get Started</button>
         </Link> 
     </div>
