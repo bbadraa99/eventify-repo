@@ -12,15 +12,9 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 
 const Header: React.FC = () => {
-
   const [user] = useAuthState(auth);
   const router = useRouter();
 
-  useEffect(() => {
-      if (!user) {
-          router.push('/');
-      }
-  }, [user, router]);
 
   const [isScrolled, setIsScrolled] = useState(false);
 
