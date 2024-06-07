@@ -41,7 +41,7 @@ const config: Config = {
           70: '#021639',
         },
         background: {
-          10: '#84CEEB',
+          10: '#F0F0EB',
           20: '#5680E9',
           30: '#5AB9EA',
           40: '#8860D0',

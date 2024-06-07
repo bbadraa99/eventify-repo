@@ -36,7 +36,7 @@ const SigninPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center pt-10 lg:pt-16  bg-background-10 flex-col justify-items-stretch">
-      <div className='bold-32 text-white p-10'>Eventify</div>
+      <div className='bold-32 text-black p-10'>Eventify</div>
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md justify-self-center">
         <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign In</h2>
         <form onSubmit={handleSubmit}>
