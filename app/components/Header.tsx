@@ -58,12 +58,14 @@ const Header: React.FC = () => {
       </Link>
       { user? 
         <div className='flex flex-row center space-x-4'> 
-          <p className='regular-16'>{user.email}</p> 
+          <p className='regular-16 text-black'>{user.email}</p> 
           <Link href="/sign-in">
-            <button className={styles.loginButton}>Sign Out</button>
+            <button className={styles.loginButton} onClick={handleSignOut}>Sign Out</button>
           </Link> 
         </div> : 
-        <button className={styles.loginButton} onClick={handleSignOut}>Sign In</button>
+        <Link href="/sign-in">
+          <button className={styles.loginButton}>Sign In</button>
+        </Link>
       }
       
     </header>
