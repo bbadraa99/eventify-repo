@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../components/Header'
 import Image from 'next/image'
 
-const info = () => {
+const Info = () => {
   return (
     <div className='h-full bg-background-10 mx-auto px-36 flex-col'>
         <Header/>
@@ -66,4 +66,4 @@ const info = () => {
   )
 }
 
-export default info
+export default Info

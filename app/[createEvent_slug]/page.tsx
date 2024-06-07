@@ -2,24 +2,21 @@
 'use client';
 
 import React, { useState } from 'react';
-// import Link from 'next/link';
-// import Image from 'next/image';
-// import Header from '../components/Header';
-// import styles from './createEvent.module.css';
 import { usePathname } from 'next/navigation'
 import EventForm from '../components/EventForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/config';
-import { Timestamp } from 'firebase/firestore';
 import { TaskElement } from '../eventTemplate';
-import { FormData } from '../components/EventForm';
+import { EventFormData } from '../components/EventForm';
 import Checklist from '../checklist/page';
+import { templates } from '../eventTemplate';
+import Info from '../info/page';
 
 export interface EventData {
   title: string,
   date: Date,
   description: string,
-  template_id: string,
+  template_id: number,
   admin: string,
   users: string[],
   tasks: TaskElement[]
@@ -28,20 +25,21 @@ export interface EventData {
 const CreateEvent: React.FC = () => {
   const path = usePathname();
   const [admin] = useAuthState(auth);
-  const id = path.charAt(path.length - 1);
-  // console.log(admin)
+  const template_id: number = parseInt(path.charAt(path.length - 1));
+  const template_tasks: TaskElement[] = templates[template_id].tasks
+
   const [event, setEvent] = useState("form");
   const [eventData, setEventData] = useState<EventData>({
     title: "",
     date: new Date(),
     description: "",
-    template_id: id,
+    template_id: template_id,
     admin: "",
     users: [],
-    tasks: []
+    tasks: template_tasks
   });
 
-  function handleClick(newEventData: FormData) {
+  function handleFormSubmission(newEventData: EventFormData) {
     setEventData(prevEventData => ({
       ...prevEventData,
       title: newEventData.title,
@@ -50,12 +48,16 @@ const CreateEvent: React.FC = () => {
     }));
     setEvent("checklist")
   }
-  console.log(eventData)
+
+  function handleChecklistCreate(){
+    setEvent("info")
+  }
 
   return(
     <div>
-      {event === "form" && <EventForm handleClick = {handleClick}></EventForm>}
-      {event === "checklist" && <Checklist></Checklist>}
+      {event === "form" && <EventForm handleClick = {handleFormSubmission}></EventForm>}
+      {event === "checklist" && <Checklist handleClick = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
+      {event === "info" && <Info></Info>}
     </div>
 
   )

@@ -4,16 +4,15 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import React, { useState } from 'react';
 import styles from './checklist.module.css';
+import { TaskElement } from '../eventTemplate';
 
-const Checklist = ({}) => {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Make a guest list', completed: false, showMenu: false },
-    { id: 2, text: 'Send invitations', completed: false, showMenu: false },
-    { id: 3, text: 'Book entertainment venue', completed: false, showMenu: false },
-    { id: 4, text: 'Order food', completed: false, showMenu: false },
-    { id: 5, text: 'Prepare decorations', completed: false, showMenu: false },
-    { id: 6, text: 'Arrange tables', completed: false, showMenu: false },
-  ]);
+interface PropElements{
+  handleClick: () => void;
+  template_tasks: TaskElement[];
+}
+
+const Checklist = (props: PropElements) => {
+  const [tasks, setTasks] = useState(props.template_tasks);
 
   const [newTaskText, setNewTaskText] = useState('');
   const [addingTask, setAddingTask] = useState(false);
@@ -34,7 +33,7 @@ const Checklist = ({}) => {
         completed: false,
         showMenu: false,
       };
-      setTasks([newTask, ...tasks]); // Prepend the new task
+      setTasks([newTask, ...tasks]);
       setNewTaskText('');
       setAddingTask(false);
     }
@@ -111,9 +110,7 @@ const Checklist = ({}) => {
             </li>
           ))}
         </ul>
-        <Link className={styles.proceedButton} href="/info">
-          <button>Create</button>
-        </Link>
+        <button onClick = {props.handleClick}>Create</button>
         
       </div>
     </div>

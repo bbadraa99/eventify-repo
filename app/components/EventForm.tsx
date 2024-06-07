@@ -7,10 +7,10 @@ import { Timestamp } from "firebase/firestore";
 import { EventData } from "../[createEvent_slug]/page";
 
 interface PropElements{
-    handleClick: (newEventData: FormData) => void;
-    // eventData: EventData;
+    handleClick: (newEventData: EventFormData) => void;
 }
-export interface FormData{
+
+export interface EventFormData{
     title: string,
     description: string,
     date: Date
