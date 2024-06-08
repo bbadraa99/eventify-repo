@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+//to do: get the event infromation and put in the email text 
 export async function POST(request: NextRequest) {
     const { emails } = await request.json();
-    const subject = "Hello";
-    const text = "This is a test email";
-
+    const subject = "Invitation to the event";
+    const text = "Dear [guest_name] you are invited to the event organized by [user_name] on [event_date]. Follow this link to choose your preferences on the tasks. [link] Thank you!";
+    
+    // to do: create eventify email account and use it for sending invitations
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
