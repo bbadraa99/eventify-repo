@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 export default function handler() {
-      const to = "aibekminbaev050402@gmail.com"; 
+      const to = "yrlnsayfulla@gmail.com"; 
       const subject = "Hellow"
       const text = "This is test email"
 
