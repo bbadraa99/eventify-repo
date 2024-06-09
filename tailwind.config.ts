@@ -42,7 +42,7 @@ const config: Config = {
         },
         background: {
           10: '#F0F0EB',
-          20: '#5680E9',
+          20: '#BFA181',
           30: '#5AB9EA',
           40: '#8860D0',
           50: '#0000FF',

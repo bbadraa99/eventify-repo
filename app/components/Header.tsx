@@ -54,12 +54,12 @@ const Header: React.FC = () => {
         <div className='flex flex-row center space-x-4'> 
           <p className='regular-16 text-black'>{user.email}</p> 
           <Link href="/sign-in">
-            <button className="btn regular-16 text-black bg-transparent hover:bg-gray-300" onClick={handleSignOut}>Sign Out</button>
+            <button className="btn regular-16 text-black border-2 bg-transparent hover:bg-gray-300" onClick={handleSignOut}>Sign Out</button>
           </Link> 
         </div> : 
         <Link href="/sign-in/user">
-          <button className="btn regular-16 text-black bg-transparent hover:bg-gray-300">Sign In</button>
-        </Link>
+          <button className="btn regular-16 text-black border-2 bg-transparent hover:bg-gray-300">Sign In</button>
+        </Link> 
       }
       
     </header>
