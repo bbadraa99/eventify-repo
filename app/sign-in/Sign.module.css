@@ -1,0 +1,122 @@
+.carousel {
+  height: 100%;
+  width: 100%;
+  background-color: #ffe0d2;
+  border-radius: 2rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding-bottom: 2rem;
+  overflow: hidden;
+  transition: 0.8s ease-in-out;
+}
+
+.imagesWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 50%;
+}
+
+.image {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.5s;
+}
+
+.img1 {
+  transform: translate(0, -50px);
+}
+
+.img2 {
+  transform: scale(0.4, 0.5);
+}
+
+.img3 {
+  transform: scale(0.3) rotate(-20deg);
+}
+
+.show {
+  opacity: 1;
+  transform: none;
+}
+
+.textSlider {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.textWrap {
+  max-height: 2.2rem;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.textGroup {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transform: translateY(0);
+  transition: 0.5s;
+}
+
+.textGroup h2 {
+  line-height: 2.2rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+.bullets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bullets span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #aaa;
+  margin: 0 0.25rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bullets span.active {
+  width: 1.1rem;
+  background-color: #151111;
+  border-radius: 1rem;
+}
+
+.reverse .formContainer {
+  order: 1;
+  transform: translateX(110%);
+  transition: transform 0.8s;
+}
+
+.reverse .carouselContainer {
+  order: 2;
+  transform: translateX(-100%);
+  transition: transform 0.8s;
+}
+
+.formContainer {
+  transform: translateX(0);
+  transition: transform 0.8s;
+}
+
+.carouselContainer {
+  transform: translateX(0);
+  transition: transform 0.8s;
+}
+
+main.sign-up-mode .carouselContainer {
+  transform: translateX(-100%);
+}
+
+main.sign-up-mode .formContainer {
+  transform: translateX(0);
+}
