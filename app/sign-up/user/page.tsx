@@ -34,7 +34,7 @@ const SignupPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center pt-5 md:pt-10 bg-background-10 flex-col">
-      <div className='bold-32 text-white p-10'>Eventify</div>
+      <div className='bold-32 text-black p-10'>Eventify</div>
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-black">Sign Up</h2>
         <form onSubmit={handleSubmit}>
@@ -80,12 +80,12 @@ const SignupPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="w-full bg-background-10 text-white px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full bg-background-10 text-black border-2 border-gray-600 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Sign Up
             </button>
           </div>
-          <p className='pt-4'>Already have an account? <Link href="/sign-in" className='text-bold text-black'>Sign in</Link></p>
+          <p className='pt-4'>Already have an account? <Link href="/sign-in/user" className='text-bold text-black'>Sign in</Link></p>
         </form>
         {error && <p className="text-red-500 text-center mt-4">{error.message}</p>}
         {loading && <p className="text-gray-500 text-center mt-4">Loading...</p>}

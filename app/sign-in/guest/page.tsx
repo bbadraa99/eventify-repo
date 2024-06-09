@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-const SigninPage: React.FC = () => {
+const GuestSigninPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -69,7 +69,7 @@ const SigninPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="w-full bg-background-10 text-white px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full bg-background-10 text-black border-2 border-gray-600 px-4 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Sign In
             </button>
@@ -79,9 +79,9 @@ const SigninPage: React.FC = () => {
         {loading && <p className="text-gray-500 text-center mt-4">Loading...</p>}
         {user && <p className="text-green-500 text-center mt-4">Signed in successfully!</p>}
       </div>
-      <p className='pt-4'>Don't have an account? <Link href="/sign-up" className='text-bold text-white'>Sign up</Link></p>
+      <p className='pt-4'>Don't have an account? <Link href="/sign-up/guest" className='text-bold text-black'>Sign up</Link></p>
     </div>
   );
 };
 
-export default SigninPage;
+export default GuestSigninPage;
