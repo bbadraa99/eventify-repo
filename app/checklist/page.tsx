@@ -6,15 +6,15 @@ import React, { useState } from 'react';
 import styles from './checklist.module.css';
 import { TaskElement } from '../eventTemplate';
 
-interface PropElements{
+interface PropElements {
   handleClick: () => void;
   template_tasks: TaskElement[];
 }
 
 const Checklist = (props: PropElements) => {
   const [tasks, setTasks] = useState(props.template_tasks);
-
   const [newTaskText, setNewTaskText] = useState('');
+  const [newTaskLabel, setNewTaskLabel] = useState(''); // New state for task label
   const [addingTask, setAddingTask] = useState(false);
 
   const handleAddTaskClick = () => {
@@ -26,21 +26,23 @@ const Checklist = (props: PropElements) => {
       const newTask = {
         id: tasks.length + 1,
         text: newTaskText.trim(),
-        label: "",
+        label: newTaskLabel.trim(), // Include the task label
         showMenu: false,
       };
       setTasks([newTask, ...tasks]);
       setNewTaskText('');
+      setNewTaskLabel(''); // Reset the label input
       setAddingTask(false);
     }
   };
 
   const handleCancelTask = () => {
     setNewTaskText('');
+    setNewTaskLabel(''); // Reset the label input
     setAddingTask(false);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleCreateTask();
@@ -78,6 +80,13 @@ const Checklist = (props: PropElements) => {
               placeholder="Enter new task"
               autoFocus
             />
+            <input
+              className={styles.input}
+              value={newTaskLabel}
+              onChange={(e) => setNewTaskLabel(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Enter task label"
+            />
             <div className={styles.buttonContainer}>
               <button className={styles.cancelButton} onClick={handleCancelTask}>Cancel</button>
               <button className={styles.saveButton} onClick={handleCreateTask}>Add task</button>
@@ -87,7 +96,6 @@ const Checklist = (props: PropElements) => {
         <ul className={styles.taskList}>
           {tasks.map(task => (
             <li key={task.id} className={styles.taskItem}>
-              
               <label className={styles.taskLabelContainer}>
                 <span className={styles.taskText}>{task.text}</span>
                 <span className={styles.taskLabel}>{task.label}</span>
@@ -102,8 +110,7 @@ const Checklist = (props: PropElements) => {
             </li>
           ))}
         </ul>
-        <button onClick = {props.handleClick}>Create</button>
-        
+        <button onClick={props.handleClick}>Create</button>
       </div>
     </div>
   );
