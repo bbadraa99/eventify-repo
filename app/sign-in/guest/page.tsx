@@ -30,7 +30,7 @@ const GuestSigninPage: React.FC = () => {
 
   useEffect(() => {
       if (user) {
-          router.push('/');
+          router.push('/myevents');
       }
   }, [user, router]);
 
