@@ -11,13 +11,13 @@ export async function POST(request: NextRequest) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'aibekminbaev04@gmail.com',
-            pass: 'xjztlntivpzaguyt'
+            user: 'eventifyyy@gmail.com',
+            pass: 'jmkhoeeooryrcbit'
         }
     });
 
     const mailOptions = {
-        from: 'aibekminbaev04@gmail.com',
+        from: 'eventifyyy@gmail.com',
         subject: subject,
         text: text
     };
