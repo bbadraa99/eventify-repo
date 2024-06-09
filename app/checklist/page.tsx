@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 import styles from './checklist.module.css';
 import { TaskElement } from '../eventTemplate';
 
-interface PropElements {
-  handleClick: () => void;
+interface PropElements{
+  updateEventData: (newTaskData: TaskElement[]) => void;
   template_tasks: TaskElement[];
 }
 
@@ -110,7 +110,8 @@ const Checklist = (props: PropElements) => {
             </li>
           ))}
         </ul>
-        <button onClick={props.handleClick}>Create</button>
+        <button onClick = {() => props.updateEventData(tasks)}>Create</button>
+        
       </div>
     </div>
   );

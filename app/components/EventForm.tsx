@@ -1,13 +1,10 @@
 import Header from "./Header";
 import styles from "./EventForm.module.css"
-import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
-import { Timestamp } from "firebase/firestore";
-import { EventData } from "../[createEvent_slug]/page";
 
 interface PropElements{
-    handleClick: (newEventData: EventFormData) => void;
+    updateEventData: (newEventData: EventFormData) => void;
 }
 
 export interface EventFormData{
@@ -29,7 +26,7 @@ function EventForm(props: PropElements){
                 description: eventDescriptionRef.current.value,
                 date: new Date(eventDateRef.current.value), // Convert date string to Timestamp
             };
-            props.handleClick(newEventData);
+            props.updateEventData(newEventData);
         }
     };
 

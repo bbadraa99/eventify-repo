@@ -2,10 +2,14 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 
-const InvitePage = () => {
+interface PropElements{
+    updateEventData: () => void;
+  }
+
+const InvitePage = (props: PropElements) => {
     const [isInvite, setIsInvite] = useState(false);
     const [guests, setGuests] = useState([
-        { name: "Yerlen", email: "yrlnsayfulla@gmail.com" },
+        { name: "Yerlen", email: "yerlenExample@gmail.com" },
     ]);
 
     const [newGuestName, setNewGuestName] = useState("");
@@ -46,6 +50,7 @@ const InvitePage = () => {
             } else {
                 alert('Failed to send invitations: ' + result.message);
             }
+            props.updateEventData();
         } catch (error) {
             console.error('Error sending invitations:', error);
             alert('Error sending invitations');

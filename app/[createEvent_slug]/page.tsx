@@ -50,15 +50,23 @@ const CreateEvent: React.FC = () => {
     setEvent("checklist")
   }
 
-  function handleChecklistCreate(){
+  function handleChecklistCreate(newTaskData: TaskElement[]){
+    setEventData(prevEventData => ({
+      ...prevEventData,
+      tasks: newTaskData
+    }))
     setEvent("invite")
   }
 
+  function handleSendInvitations(){
+    setEvent("info")
+  }
+  // console.log(eventData);
   return(
     <div>
-      {event === "form" && <EventForm handleClick = {handleFormSubmission}></EventForm>}
-      {event === "checklist" && <Checklist handleClick = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
-      {event === "invite" && <InvitePage></InvitePage>}
+      {event === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
+      {event === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
+      {event === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
       {event === "info" && <Info></Info>}
     </div>
 
