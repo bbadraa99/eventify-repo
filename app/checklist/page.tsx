@@ -17,10 +17,6 @@ const Checklist = (props: PropElements) => {
   const [newTaskText, setNewTaskText] = useState('');
   const [addingTask, setAddingTask] = useState(false);
 
-  const handleCheckboxChange = (id: number) => {
-    setTasks(tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
-  };
-
   const handleAddTaskClick = () => {
     setAddingTask(true);
   };
@@ -30,7 +26,7 @@ const Checklist = (props: PropElements) => {
       const newTask = {
         id: tasks.length + 1,
         text: newTaskText.trim(),
-        completed: false,
+        label: "",
         showMenu: false,
       };
       setTasks([newTask, ...tasks]);
@@ -91,14 +87,10 @@ const Checklist = (props: PropElements) => {
         <ul className={styles.taskList}>
           {tasks.map(task => (
             <li key={task.id} className={styles.taskItem}>
-              <label className={styles.taskLabel}>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  className={styles.checkbox}
-                  onChange={() => handleCheckboxChange(task.id)}
-                />
-                {task.text}
+              
+              <label className={styles.taskLabelContainer}>
+                <span className={styles.taskText}>{task.text}</span>
+                <span className={styles.taskLabel}>{task.label}</span>
               </label>
               <button className={styles.moreButton} onClick={() => toggleMenu(task.id)}>...</button>
               {task.showMenu && (

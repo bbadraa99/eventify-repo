@@ -56,9 +56,19 @@
     height: 20px;
   }
   
-  .taskLabel {
+  .taskLabelContainer {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+  }
+  
+  .taskText {
+    font-size: 16px; 
+    color: #000000; 
+  }
+  
+  .taskLabel {
+    font-size: 12px; 
+    color: #888888; 
   }
   
   .taskLabel input {
