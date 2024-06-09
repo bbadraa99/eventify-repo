@@ -51,12 +51,19 @@
     border-radius: 10px;
   }
 
+
   .checkbox {
     width: 20px;
     height: 20px;
   }
   
   .taskLabelContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editTaskContainer {
+    height: 200px;
     display: flex;
     flex-direction: column;
   }
@@ -209,4 +216,24 @@
   .menuItem:hover {
     background-color: #f0f0f0;
   }
+
+  .taskActions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px; 
+  }
+  
+  .icon {
+    width: 16px; 
+    height: 16px; 
+  }
+
+  
+  
   
