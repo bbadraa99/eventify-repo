@@ -38,6 +38,7 @@ const config: Config = {
           20: "#065982",
           30: '#008ECC',
           50: '#007AFF',
+          60: '#4747FF',
           70: '#021639',
         },
         background: {

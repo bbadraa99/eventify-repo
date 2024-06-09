@@ -41,7 +41,7 @@
 }
 
 .logoText:not(.header.scrolled .logoText) {
-  animation: moveRight 0.3s forwards;
+  animation: moveRight 0.8s forwards;
 }
 
 @keyframes moveLeft {
