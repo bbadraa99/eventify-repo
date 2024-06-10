@@ -1,0 +1,96 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0eb;
+  }
+  
+  .main {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+  
+  .title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+  }
+  
+  .description {
+    margin: 1rem 0 2rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #666;
+  }
+  
+  .taskList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .taskItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .taskName {
+    font-size: 1rem;
+    color: #333;
+    margin-left: 1rem;
+  }
+  
+  .circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .filled {
+    background-color: #0070f3;
+    color: white;
+    border: 2px solid #0070f3;
+  }
+  
+  .button {
+    background-color: #4747ff;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
