@@ -19,13 +19,15 @@ const Checklist = (props: PropElements) => {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [editTaskText, setEditTaskText] = useState('');
   const [editTaskLabel, setEditTaskLabel] = useState('');
+
+  const labelOptions = ["planning", "booking", "communication", "catering", "setup"];
   
   const handleAddTaskClick = () => {
     setAddingTask(true);
   };
 
   const handleCreateTask = () => {
-    if (newTaskText.trim()) {
+    if (newTaskText.trim() && newTaskLabel.trim()) {
       const newRandomId = Math.floor(Math.random() * 100000);
       const newTask = {
         id: newRandomId,
@@ -88,12 +90,16 @@ const Checklist = (props: PropElements) => {
               placeholder="Enter new task"
               autoFocus
             />
-            <input
-              className={styles.input}
+            <select
+              className="select select-bordered w-full max-w-xs"
               value={newTaskLabel}
               onChange={(e) => setNewTaskLabel(e.target.value)}
-              placeholder="Enter task label"
-            />
+            >
+              <option value="" disabled selected>Select task label</option>
+              {labelOptions.map(option => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
             <div className={styles.buttonContainer}>
               <button className={styles.cancelButton} onClick={handleCancelTask}>Cancel</button>
               <button className={styles.saveButton} onClick={handleCreateTask}>Add task</button>
@@ -115,13 +121,17 @@ const Checklist = (props: PropElements) => {
                     autoFocus
                   />
                   <label id="task-label" htmlFor="task-label">Task label:</label>
-                  <input
+                  <select
                     id="task-label"
-                    className={styles.input}
+                    className="select select-bordered w-full max-w-xs"
                     value={editTaskLabel}
                     onChange={(e) => setEditTaskLabel(e.target.value)}
-                    placeholder="Edit label"
-                  />
+                  >
+                    <option value="" disabled selected>Select task label</option>
+                    {labelOptions.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
                   <div className={styles.buttonContainer}>
                     <button className={styles.cancelButton} onClick={handleCancelEditTask}>Cancel</button>
                     <button className={styles.saveButton} onClick={handleSaveEditTask}>Save</button>
