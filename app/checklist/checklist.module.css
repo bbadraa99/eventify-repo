@@ -38,7 +38,7 @@
     flex-direction: column;
     background-color: white;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 50%;
     margin-bottom: 15px;
   }
@@ -156,4 +156,23 @@
 
 .actionButton:hover svg {
   fill: #0070f3;
+}
+
+.createLink {
+    background-color: #4747ff;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    width: 18%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.createLink:hover {
+  background-color: #005bb5;
 }

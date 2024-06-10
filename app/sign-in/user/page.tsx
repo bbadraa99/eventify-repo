@@ -71,7 +71,7 @@ const SigninPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background-10">
-      <div className={`flex flex-col lg:flex-row bg-white shadow-lg rounded-5xl overflow-hidden h-full max-w-4xl w-full ${isSignUp ? styles.reverse : ''}`}>
+      <div className={`flex flex-col lg:flex-row bg-white shadow-lg rounded-5xl overflow-hidden max-w-4xl w-full ${isSignUp ? styles.reverse : ''}`}>
         <div className={`flex flex-col justify-center items-center py-8 px-16 lg:w-1/2 bg-white ${styles.formContainer}`}>
           <div className="text-4xl font-bold mb-6">Eventify</div>
           <h2 className="text-3xl font-bold mb-6 text-center text-black">{isSignUp ? 'Create an Account' : 'Welcome Back'}</h2>

@@ -50,6 +50,7 @@ const config: Config = {
           60: '#053F5C',
           70: '#F7AD19',
           80: '#F27F0C',
+          90: '#ffffff'
         }
       },
       screens: {
