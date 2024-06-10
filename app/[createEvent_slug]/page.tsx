@@ -12,6 +12,7 @@ import Checklist from '../checklist/page';
 import { templates } from '../eventTemplate';
 import Info from '../info/page';
 import InvitePage from '../invite/page';
+import { GuestData } from '../invite/page';
 
 export interface EventData {
   title: string,
@@ -19,7 +20,7 @@ export interface EventData {
   description: string,
   template_id: number,
   admin: string,
-  users: string[],
+  guests: GuestData[],
   tasks: TaskElement[]
 }
 
@@ -36,7 +37,7 @@ const CreateEvent: React.FC = () => {
     description: "",
     template_id: template_id,
     admin: "",
-    users: [],
+    guests: [],
     tasks: template_tasks
   });
 
@@ -58,7 +59,11 @@ const CreateEvent: React.FC = () => {
     setEventCreationPage("invite")
   }
 
-  function handleSendInvitations(){
+  function handleSendInvitations(guests: GuestData[]){
+    setEventData(prevEventData => ({
+      ...prevEventData,
+      guests: guests
+    }))
     setEventCreationPage("info")
   }
   // console.log(eventData);
@@ -67,7 +72,7 @@ const CreateEvent: React.FC = () => {
       {eventCreationPage === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
       {eventCreationPage === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
       {eventCreationPage === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
-      {eventCreationPage === "info" && <Info></Info>}
+      {eventCreationPage === "info" && <Info eventData={eventData}></Info>}
     </div>
 
   )
