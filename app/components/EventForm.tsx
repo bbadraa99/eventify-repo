@@ -1,7 +1,9 @@
+'use client';
+
 import Header from "./Header";
 import styles from "./EventForm.module.css"
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface PropElements{
     updateEventData: (newEventData: EventFormData) => void;
@@ -18,16 +20,25 @@ function EventForm(props: PropElements){
     const eventNameRef = useRef<HTMLInputElement>(null);
     const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
     const eventDateRef = useRef<HTMLInputElement>(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleButtonClick = () => {
-        if (eventNameRef.current && eventDescriptionRef.current && eventDateRef.current) {
-            const newEventData = {
-                title: eventNameRef.current.value,
-                description: eventDescriptionRef.current.value,
-                date: new Date(eventDateRef.current.value), // Convert date string to Timestamp
-            };
-            props.updateEventData(newEventData);
+    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
+        
+        if(!eventNameRef.current || !eventNameRef.current.value || eventNameRef.current.value === ""
+        || !eventDescriptionRef.current || !eventDescriptionRef.current.value || eventDescriptionRef.current.value === ""
+        || !eventDateRef.current || !eventDateRef.current.value || eventDateRef.current.value === ""){
+            setErrorMessage('All fields are required.');
+            return;
         }
+        
+        const newEventData = {
+            title: eventNameRef.current.value,
+            description: eventDescriptionRef.current.value,
+            date: new Date(eventDateRef.current.value), // Convert date string to Timestamp
+        };
+        props.updateEventData(newEventData);
+        setErrorMessage('');
     };
 
     return (
@@ -55,6 +66,7 @@ function EventForm(props: PropElements){
                 <input ref = {eventDateRef} className={styles.textarea} type="date" id="date" name="date" />
                 </div>
                 <button onClick={handleButtonClick} className={styles.createLink}>Continue</button>
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </form>
             <div className={styles.imageContainer}>
                 <Image src="/images/create-page.jpg" alt="Event illustration" width={450} height={300} />

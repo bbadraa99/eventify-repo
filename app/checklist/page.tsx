@@ -7,7 +7,7 @@ import styles from './checklist.module.css';
 import { TaskElement } from '../eventTemplate';
 
 interface PropElements {
-  handleClick: () => void;
+  updateEventData: (newTaskData: TaskElement[]) => void;
   template_tasks: TaskElement[];
 }
 
@@ -19,15 +19,16 @@ const Checklist = (props: PropElements) => {
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
   const [editTaskText, setEditTaskText] = useState('');
   const [editTaskLabel, setEditTaskLabel] = useState('');
-
+  
   const handleAddTaskClick = () => {
     setAddingTask(true);
   };
 
   const handleCreateTask = () => {
     if (newTaskText.trim()) {
+      const newRandomId = Math.floor(Math.random() * 100000);
       const newTask = {
-        id: tasks.length + 1,
+        id: newRandomId,
         text: newTaskText.trim(),
         label: newTaskLabel.trim(),
         showMenu: false,
@@ -150,7 +151,7 @@ const Checklist = (props: PropElements) => {
             </li>
           ))}
         </ul>
-        <button onClick={props.handleClick}>Create</button>
+        <button onClick={() => props.updateEventData(tasks)}>Create</button>
       </div>
     </div>
   );

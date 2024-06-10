@@ -29,7 +29,7 @@ const CreateEvent: React.FC = () => {
   const template_id: number = parseInt(path.charAt(path.length - 1));
   const template_tasks: TaskElement[] = templates[template_id].tasks
 
-  const [event, setEvent] = useState("form");
+  const [eventCreationPage, setEventCreationPage] = useState("form");
   const [eventData, setEventData] = useState<EventData>({
     title: "",
     date: new Date(),
@@ -47,7 +47,7 @@ const CreateEvent: React.FC = () => {
       date: newEventData.date,
       description: newEventData.description
     }));
-    setEvent("checklist")
+    setEventCreationPage("checklist")
   }
 
   function handleChecklistCreate(newTaskData: TaskElement[]){
@@ -55,19 +55,19 @@ const CreateEvent: React.FC = () => {
       ...prevEventData,
       tasks: newTaskData
     }))
-    setEvent("invite")
+    setEventCreationPage("invite")
   }
 
   function handleSendInvitations(){
-    setEvent("info")
+    setEventCreationPage("info")
   }
   // console.log(eventData);
   return(
     <div>
-      {event === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
-      {event === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
-      {event === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
-      {event === "info" && <Info></Info>}
+      {eventCreationPage === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
+      {eventCreationPage === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
+      {eventCreationPage === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
+      {eventCreationPage === "info" && <Info></Info>}
     </div>
 
   )
