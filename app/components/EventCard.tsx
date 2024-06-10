@@ -21,13 +21,15 @@ const EventCard: React.FC<EventCardProps> = ({ template_id, title, description, 
 
   return (
       <div className={styles.card}>
-        <Image src={imageSrc} alt={title} className={styles.cardImage} width={300} height={250} />
-        <h3 className={styles.cardTitle}>{title}</h3>
-        <p>{description}</p>
-        
-        <Link href={user ? `/createEvent_${template_id}` : "/sign-in"}>
-          <button className={styles.getStartedLink}>Get Started</button>
-        </Link> 
+        <Image src={imageSrc} alt={title} className={styles.cardImage} width={400} height={400} />
+        <div className={styles.cardInside}>
+          <h3 className={styles.cardTitle}>{title}</h3>
+          <p>{description}</p>
+          
+          <Link href={user ? `/createEvent_${template_id}` : "/sign-in"}>
+            <button className={styles.getStartedLink}>Get Started</button>
+          </Link> 
+        </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const templates = [
       id: 0, 
       title: 'Birthday Party',
       description: 'Celebrate another year of life with loved ones!',
-      imageSrc: '/images/birthday.png',
+      imageSrc: '/images/birthday-2.png',
       tasks: [
         { id: 0, text: 'Make a guest list', label: 'planning', showMenu: false },
         { id: 1, text: 'Create a budget', label: 'planning', showMenu: false },
@@ -36,7 +36,7 @@ export const templates = [
       id: 1, 
       title: 'Game Night',
       description: 'An evening of fun board games and camaraderie.',
-      imageSrc: '/images/wedding.jpg', 
+      imageSrc: '/images/game-night.png', 
       tasks: [
         { id: 0, text: 'Choose games to play', label: 'planning', showMenu: false },
         { id: 1, text: 'Set a date and time', label: 'planning', showMenu: false },
@@ -62,7 +62,7 @@ export const templates = [
       id: 2, 
       title: 'Picnic',
       description: 'Celebrate academic achievements with others.',
-      imageSrc: '/images/graduation.jpg', 
+      imageSrc: '/images/picnic-2.png', 
       tasks: [
         { id: 0, text: 'Choose a location', label: 'planning', showMenu: false },
         { id: 1, text: 'Set a date and time', label: 'planning', showMenu: false },

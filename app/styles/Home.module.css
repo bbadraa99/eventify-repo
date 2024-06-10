@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem 1rem 2rem;
+    padding: 1rem 4rem 1rem 4rem;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -88,23 +88,27 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
+    margin-top: 10px;
+    margin-bottom: 50px;
   }
   
 .card {
   background: #fff;
   margin: 15px;
-  padding: 0 1rem 1rem 1rem;
   border: 1px solid #eaeaea;
   border-radius: 20px;
   text-align: left;
   max-width: 300px;
 }
 
+.cardInside {
+  padding: 12px 20px;
+}
+
 .cardTitle {
   font-size: 22px;
   font-weight: 550;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
   
 .cardImage {
@@ -121,7 +125,8 @@
     border: none;
     color: white;
     padding: 0.5rem 1rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
     cursor: pointer;
     border-radius: 30px;
     width: 90%;
@@ -129,4 +134,28 @@
     margin-right: auto;
     display: flex;
     justify-content: center;
+}
+
+/* Existing styles */
+
+.button {
+    border: none;
+    color: white;
+    padding: 12px 10px;
+    margin-top: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 30%;
+    font-size: 20px;
+    margin-right: 20px;
+    justify-content: center;
+}
+
+.tryItButton {
+  background-color: #4747ff; /* Blue background for Sign In button */
+  color: white;
+}
+
+.tryItButton:hover {
+  background-color: #005bb5; /* Darker blue on hover */
 }
