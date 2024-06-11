@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     <div className='bg-background-10'>
       <div className="p-0">
         <Header />
-        <div className={`${styles.hero} flex justify-center text-center`}>
+        <div className={`${styles.hero} h-screen flex justify-center text-center`}>
           <div className='text-5xl text-white flex flex-col'>
             <h1 className='font-medium mt-40 mb-10'>Automate Event <br /> Planning With Friends</h1>
             <p className='text-xl'>

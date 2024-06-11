@@ -167,7 +167,6 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: 1;
-  height: 650px;
 }
 
 .hero::before {

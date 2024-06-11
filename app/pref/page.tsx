@@ -37,7 +37,7 @@ const Home: React.FC = () => {
           } else {
             // Remove the order from the clicked task
             const decreasedOrder = task.order;
-            setCurrentOrder(prevOrder => prevOrder - 1);
+            setCurrentOrder(prevOrder => prevOrder - 0.5);
             return { ...task, order: 0 };
           }
         }
