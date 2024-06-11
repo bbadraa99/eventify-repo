@@ -12,11 +12,12 @@
   }
   
   .main {
-    width: 80%;
+    width: 70%;
     max-width: 90%;
     padding: 20px;
     border-radius: 8px;
     flex-direction: column;
+    margin-top: 20px;
   }
   
   .title {
@@ -29,11 +30,14 @@
   .formContainer {
     display: flex;
     align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: white;
   }
   
   .form {
     width: 40%;
-    margin-right: 100px;
+    margin: 30px;
   }
   
   .field {
@@ -78,18 +82,18 @@
   .imageContainer {
     display: inline-block;
     text-align: center;
+    margin: 30px;
   }
   
   .imageContainer img {
     max-width: 100%;
-    border-radius: 8px;
+    border-radius: 20px;
   }
   
   .subtitle {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 20px;
-    margin-top: 30px;
     margin-bottom: 10px;
   }
 

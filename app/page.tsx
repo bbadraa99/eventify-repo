@@ -17,7 +17,7 @@ const Home: React.FC = () => {
         <Header />
         <div className={`${styles.hero} h-screen flex justify-center text-center`}>
           <div className='text-5xl text-white flex flex-col'>
-            <h1 className='font-medium mt-40 mb-10'>Automate Event <br /> Planning With Friends</h1>
+            <h1 className='font-semibold mt-40 mb-10'>Automate Event <br /> Planning With Friends</h1>
             <p className='text-xl'>
               Effortlessly plan memorable events with friends using our 
               <br /> automated tools and templates for a stress-free experience.

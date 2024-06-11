@@ -4,6 +4,7 @@ import Header from "./Header";
 import styles from "./EventForm.module.css"
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 interface PropElements{
     updateEventData: (newEventData: EventFormData) => void;
@@ -16,6 +17,15 @@ export interface EventFormData{
 }
 
 function EventForm(props: PropElements){
+    const path = usePathname();
+    const template_id: number = parseInt(path.charAt(path.length - 1));
+    console.log(template_id);
+    var imgSrc = "/images/birthday-2.png";
+    if (template_id === 1) {
+        imgSrc = "/images/game-night.png"
+    } else if (template_id === 2) {
+        imgSrc = "/images/picnic-2.png"
+    }
 
     const eventNameRef = useRef<HTMLInputElement>(null);
     const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -46,7 +56,6 @@ function EventForm(props: PropElements){
         <Header />
         <div className={styles.mainContainer}>
         <main className={styles.main}>
-            <h1 className={styles.title}>Let's start with an organizer's information</h1>
             <div className={styles.formContainer}>
             <form className={styles.form}>
 
@@ -69,8 +78,7 @@ function EventForm(props: PropElements){
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </form>
             <div className={styles.imageContainer}>
-                <Image src="/images/create-page.jpg" alt="Event illustration" width={450} height={300} />
-                <Image src="/images/event2.jpg" alt="Event illustration 2" width={450} height={300} />
+                <Image src={imgSrc} alt="Event illustration" width={450} height={300} />
             </div>
             </div>
         </main>
