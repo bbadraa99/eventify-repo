@@ -159,3 +159,32 @@
 .tryItButton:hover {
   background-color: #005bb5; /* Darker blue on hover */
 }
+
+.hero {
+  position: relative;
+  background-image: url('/images/picnic-wide.png'); /* Replace with your background image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  height: 650px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Black overlay with 50% opacity */
+  z-index: -1;
+}
+
+.hero .textContainer {
+  position: relative;
+  z-index: 2;
+}
+
+
+
