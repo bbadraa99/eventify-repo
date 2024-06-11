@@ -4,10 +4,11 @@ import React, { useEffect, useReducer, useState } from 'react'
 import Header from '../../components/Header'
 import Image from 'next/image'
 import { EventData } from '../../[createEvent_slug]/page'
-import fetchEventData from '@/app/api/eventData/fetchEventData';
 import { usePathname } from 'next/navigation';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/app/firebase/config';
 
 interface PropElements{
 
@@ -15,38 +16,40 @@ interface PropElements{
 
 const Info = () => {
   const path = usePathname();
-  const eventId = path.split("/")[1];
+  const eventId = path.split("/")[2];
 
-  const [event, setEvent] = useState<EventData | null>(null);
+  const [event, setEvent] = useState<EventData>(
+      {
+          title: "",
+          date: new Date(),
+          description: "",
+          template_id: 0,
+          admin: "",
+          guests: [],
+          tasks: [],
+      }
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      const eventData = await fetchEventData(eventId);
-      setEvent(eventData);
-    };
-    fetchData();
-  }, [eventId]);
+      const fetchData = async () => {
+          const docRef = doc(db, "event_test", eventId);
+          console.log("the id: " + eventId);
+          const docSnap = await getDoc(docRef);
 
-  if (!event) {
-    return <div>Loading...</div>; // Render a loading state while data is being fetched
-  }
+          if (docSnap.exists()) {
+              setEvent(docSnap.data() as EventData);
+          } else {
+              console.log("No such document!");
+          }
+      };
 
-  // const event = fetchEventData(eventId);
-  // console.log(event)
+      fetchData();
+  }, [eventId]); 
+  
 
-  // const event = {
-  //   title: "",
-  //   date: new Date(),
-  //   description: "",
-  //   template_id: 1,
-  //   admin: "",
-  //   guests: [],
-  //   tasks: []
-  // }
+  console.log("Event:" + event.date);
 
-  console.log("Event:" + event);
-
-  const formattedDate = `${event.date.toUTCString().slice(0, 16)}`;
+  const formattedDate = new Date(event.date).toUTCString().slice(0, 16);
   // const path = usePathname();
 
   return (
@@ -85,8 +88,8 @@ const Info = () => {
                             return (
                                 <tr key={index}>
                                 <th>{index+1}</th>
-                                {/* <td>{guest.name}</td>
-                                <td>{guest.email}</td> */}
+                                <td>{guest.name}</td>
+                                <td>{guest.email}</td>
                                 </tr>
                             )
                         })}
