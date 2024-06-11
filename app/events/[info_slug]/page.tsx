@@ -33,7 +33,6 @@ const Info = () => {
   useEffect(() => {
       const fetchData = async () => {
           const docRef = doc(db, "event_test", eventId);
-          console.log("the id: " + eventId);
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
@@ -46,9 +45,6 @@ const Info = () => {
       fetchData();
   }, [eventId]); 
   
-
-  console.log("Event:" + event.date);
-
   const formattedDate = new Date(event.date).toUTCString().slice(0, 16);
   // const path = usePathname();
 

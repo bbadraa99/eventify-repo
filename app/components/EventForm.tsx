@@ -19,7 +19,6 @@ export interface EventFormData{
 function EventForm(props: PropElements){
     const path = usePathname();
     const template_id: number = parseInt(path.charAt(path.length - 1));
-    console.log(template_id);
     var imgSrc = "/images/birthday-2.png";
     if (template_id === 1) {
         imgSrc = "/images/game-night.png"

@@ -46,7 +46,6 @@ const CreateEvent: React.FC = () => {
     tasks: template_tasks
   });
 
-  console.log(eventData);
   function handleFormSubmission(newEventData: EventFormData) {
     setEventData(prevEventData => ({
       ...prevEventData,
@@ -70,14 +69,12 @@ const CreateEvent: React.FC = () => {
       ...prevEventData,
       guests: guests
     }))
-    console.log("here");
     saveEventToDatabase();
   }
 
   const saveEventToDatabase = async () => {
     try {
       const docRef = await addDoc(collection(db, "event_test"), eventData);
-      console.log(docRef.id)
       router.push(`/events/${docRef.id}`);
     } catch (e) {
       console.error("Error adding document: ", e);

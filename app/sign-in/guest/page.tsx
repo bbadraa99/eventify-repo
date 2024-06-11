@@ -26,10 +26,8 @@ const GuestSigninPage: React.FC = () => {
           return;
         }
         const res = await createUserWithEmailAndPassword(email, password);
-        console.log(res);
       } else {
         const res = await signInWithEmailAndPassword(email, password);
-        console.log(res);
       }
       sessionStorage.setItem('user', 'true');
       setEmail('');

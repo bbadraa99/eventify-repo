@@ -12,7 +12,6 @@ interface Organizer {
 
 export async function POST(request: NextRequest) {
     const { guests, organizer }: { guests: Guest[], organizer: Organizer } = await request.json();
-    console.log(guests);
 
     const subject = "Invitation to the event";
     const htmlTemplate = `

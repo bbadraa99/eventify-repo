@@ -17,7 +17,6 @@ interface EventCardProps {
 
 const EventCard: React.FC<EventCardProps> = ({ template_id, title, description, imageSrc }) => {
   const [user] = useAuthState(auth);
-  // console.log(user)
 
   return (
       <div className={styles.card}>
