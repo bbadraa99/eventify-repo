@@ -6,7 +6,7 @@ import { auth } from "@/app/firebase/config";
 import styles from './invite.module.css';
 
 interface PropElements {
-    updateEventData: (guests: GuestData[], organizer: Organizer) => void;
+    updateEventData: (guests: GuestData[]) => void;
 }
 export interface Organizer {
     email: string;
@@ -90,6 +90,7 @@ const InvitePage = (props: PropElements) => {
             }
         } else {
             alert('Invitations sent');
+            props.updateEventData(guests);
         }
     }
 

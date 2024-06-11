@@ -1,7 +1,7 @@
 // pages/create-event.tsx
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation'
 import EventForm from '../components/EventForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -10,7 +10,6 @@ import { TaskElement } from '../eventTemplate';
 import { EventFormData } from '../components/EventForm';
 import Checklist from '../checklist/page';
 import { templates } from '../eventTemplate';
-import Info from '../events/[info_slug]/page';
 import InvitePage from '../invite/page';
 import { GuestData } from '../invite/page';
 import { db } from '../firebase/config';
@@ -29,10 +28,8 @@ export interface EventData {
 
 const CreateEvent: React.FC = () => {
   const [admin] = useAuthState(auth);
-  console.log(admin);
   const path = usePathname();
   const router = useRouter();
-  console.log(path);
   const template_id: number = parseInt(path.charAt(path.length - 1));
   const template_tasks: TaskElement[] = templates[template_id].tasks;
 
@@ -49,6 +46,7 @@ const CreateEvent: React.FC = () => {
     tasks: template_tasks
   });
 
+  console.log(eventData);
   function handleFormSubmission(newEventData: EventFormData) {
     setEventData(prevEventData => ({
       ...prevEventData,
@@ -72,12 +70,14 @@ const CreateEvent: React.FC = () => {
       ...prevEventData,
       guests: guests
     }))
+    console.log("here");
     saveEventToDatabase();
   }
 
   const saveEventToDatabase = async () => {
     try {
       const docRef = await addDoc(collection(db, "event_test"), eventData);
+      console.log(docRef.id)
       router.push(`/events/${docRef.id}`);
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -89,7 +89,6 @@ const CreateEvent: React.FC = () => {
       {eventCreationPage === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
       {eventCreationPage === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
       {eventCreationPage === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
-      {/* {eventCreationPage === "info" && <Info eventData={eventData}></Info>} */}
     </div>
 
   )
