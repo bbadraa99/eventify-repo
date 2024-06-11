@@ -15,7 +15,7 @@ const Info = () => {
   const eventId = path.split("/")[2];
 
   const [event, setEvent] = useState<EventData>(
-      {
+      {   id: "",
           title: "",
           date: new Date(),
           description: "",
@@ -34,6 +34,7 @@ const Info = () => {
           if (docSnap.exists()) {
             const fetchedData = docSnap.data();
             setEvent({
+                id: docSnap.id,
                 title: fetchedData.title,
                 date: fetchedData.date.toDate(),
                 description: fetchedData.description,

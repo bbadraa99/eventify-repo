@@ -17,6 +17,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 export interface EventData {
+  id: string;
   title: string,
   date: Date,
   description: string,
@@ -31,12 +32,14 @@ const CreateEvent: React.FC = () => {
   const path = usePathname();
   const router = useRouter();
   const template_id: number = parseInt(path.charAt(path.length - 1));
+  console.log(template_id, path);
   const template_tasks: TaskElement[] = templates[template_id].tasks;
 
-  
+
 
   const [eventCreationPage, setEventCreationPage] = useState("form");
   const [eventData, setEventData] = useState<EventData>({
+    id: "",
     title: "",
     date: new Date(),
     description: "",
@@ -56,7 +59,7 @@ const CreateEvent: React.FC = () => {
     setEventCreationPage("checklist")
   }
 
-  function handleChecklistCreate(newTaskData: TaskElement[]){
+  function handleChecklistCreate(newTaskData: TaskElement[]) {
     setEventData(prevEventData => ({
       ...prevEventData,
       tasks: newTaskData
@@ -64,14 +67,14 @@ const CreateEvent: React.FC = () => {
     setEventCreationPage("invite")
   }
 
-  function handleSendInvitations(guests: GuestData[]){
+  function handleSendInvitations(guests: GuestData[]) {
     setEventData(prevEventData => ({
       ...prevEventData,
       guests: guests
     }))
     setEventCreationPage("create")
   }
-  
+
   const saveEventToDatabase = async () => {
     try {
       const docRef = await addDoc(collection(db, "event_test"), eventData);
@@ -81,15 +84,15 @@ const CreateEvent: React.FC = () => {
     }
   };
 
-  if(eventCreationPage === "create"){
+  if (eventCreationPage === "create") {
     saveEventToDatabase();
   }
 
-  return(
+  return (
     <div>
-      {eventCreationPage === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
-      {eventCreationPage === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
-      {eventCreationPage === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
+      {eventCreationPage === "form" && <EventForm updateEventData={handleFormSubmission}></EventForm>}
+      {eventCreationPage === "checklist" && <Checklist updateEventData={handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
+      {eventCreationPage === "invite" && <InvitePage updateEventData={handleSendInvitations}></InvitePage>}
     </div>
   )
 
