@@ -1,0 +1,24 @@
+.saveButton {
+    background-color: #0070f3;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 3px 10px;
+    margin-bottom: 3px;
+}
+
+.cancelButton {
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 3px 10px;
+}
+
+.cancelButton:hover {
+    background-color: #d0d0d0;
+}
+
+.saveButton:hover {
+    background-color: #005bb5;
+}
