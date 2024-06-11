@@ -1,22 +1,51 @@
-// 'use client';
+'use client';
 
-import React from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import Header from '../../components/Header'
 import Image from 'next/image'
 import { EventData } from '../../[createEvent_slug]/page'
 import fetchEventData from '@/app/api/eventData/fetchEventData';
-// import { usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 
-interface InfoProps {
-  event: EventData;
+interface PropElements{
+
 }
 
-const Info: React.FC<InfoProps> = ({ event }) => {
-  // const path = usePathname();
-  // console.log(path)
-  // const slug = path.split('/').pop() || '';
-  // const event = await fetchEventData({ query: { slug } } as any);
+const Info = () => {
+  const path = usePathname();
+  const eventId = path.split("/")[1];
+
+  const [event, setEvent] = useState<EventData | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const eventData = await fetchEventData(eventId);
+      setEvent(eventData);
+    };
+    fetchData();
+  }, [eventId]);
+
+  if (!event) {
+    return <div>Loading...</div>; // Render a loading state while data is being fetched
+  }
+
+  // const event = fetchEventData(eventId);
+  // console.log(event)
+
+  // const event = {
+  //   title: "",
+  //   date: new Date(),
+  //   description: "",
+  //   template_id: 1,
+  //   admin: "",
+  //   guests: [],
+  //   tasks: []
+  // }
+
+  console.log("Event:" + event);
+
   const formattedDate = `${event.date.toUTCString().slice(0, 16)}`;
   // const path = usePathname();
 
@@ -56,8 +85,8 @@ const Info: React.FC<InfoProps> = ({ event }) => {
                             return (
                                 <tr key={index}>
                                 <th>{index+1}</th>
-                                <td>{guest.name}</td>
-                                <td>{guest.email}</td>
+                                {/* <td>{guest.name}</td>
+                                <td>{guest.email}</td> */}
                                 </tr>
                             )
                         })}
@@ -72,20 +101,20 @@ const Info: React.FC<InfoProps> = ({ event }) => {
 
 export default Info
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.params!;
-  const res = await fetchEventData(slug as string);
-  const data = await res.json();
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { slug } = context.params!;
+//   const res = await fetchEventData(slug as string);
+//   const data = await res.json();
 
-  if (res.status !== 200) {
-    return {
-      notFound: true,
-    };
-  }
+//   if (res.status !== 200) {
+//     return {
+//       notFound: true,
+//     };
+//   }
 
-  return {
-    props: {
-      event: data,
-    },
-  };
-};
+//   return {
+//     props: {
+//       event: data,
+//     },
+//   };
+// };
