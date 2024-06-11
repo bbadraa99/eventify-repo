@@ -69,9 +69,9 @@ const CreateEvent: React.FC = () => {
       ...prevEventData,
       guests: guests
     }))
-    saveEventToDatabase();
+    setEventCreationPage("create")
   }
-
+  
   const saveEventToDatabase = async () => {
     try {
       const docRef = await addDoc(collection(db, "event_test"), eventData);
@@ -81,13 +81,16 @@ const CreateEvent: React.FC = () => {
     }
   };
 
+  if(eventCreationPage === "create"){
+    saveEventToDatabase();
+  }
+
   return(
     <div>
       {eventCreationPage === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
       {eventCreationPage === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
       {eventCreationPage === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
     </div>
-
   )
 
 };

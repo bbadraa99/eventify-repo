@@ -1,18 +1,13 @@
 'use client';
 
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import Image from 'next/image'
 import { EventData } from '../../[createEvent_slug]/page'
 import { usePathname } from 'next/navigation';
-import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
 
-interface PropElements{
-
-}
 
 const Info = () => {
   const path = usePathname();
@@ -36,17 +31,25 @@ const Info = () => {
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-              setEvent(docSnap.data() as EventData);
+            const fetchedData = docSnap.data();
+            setEvent({
+                title: fetchedData.title,
+                date: fetchedData.date.toDate(),
+                description: fetchedData.description,
+                template_id: fetchedData.template_id,
+                admin: fetchedData.admin,
+                guests: fetchedData.guests,
+                tasks: fetchedData.tasks,
+            });
           } else {
-              console.log("No such document!");
+            console.log("No such document!");
           }
       };
 
       fetchData();
   }, [eventId]); 
-  
+
   const formattedDate = new Date(event.date).toUTCString().slice(0, 16);
-  // const path = usePathname();
 
   return (
     <div className='h-full bg-background-10 mx-auto px-36 flex-col'>
@@ -55,7 +58,6 @@ const Info = () => {
             <div className='flex-col space-y-6 w-1/2'>
                 <h1 className='bold-32'>{event.title}</h1>
                 <p className='regular-16'><span className='font-bold'>Date: </span> {formattedDate} </p>
-                {/* <p className='regular-16 font-bold'>Event Description</p> */}
                 <p className='regular-16'>{event.description}</p>
                 <button className='btn text-white bg-black'>View checklist</button>
             </div>
@@ -99,21 +101,3 @@ const Info = () => {
 }
 
 export default Info
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const { slug } = context.params!;
-//   const res = await fetchEventData(slug as string);
-//   const data = await res.json();
-
-//   if (res.status !== 200) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-
-//   return {
-//     props: {
-//       event: data,
-//     },
-//   };
-// };
