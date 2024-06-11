@@ -47,10 +47,7 @@ const Info = () => {
   }, [eventId]); 
   
 
-  console.log("Event:" + event.date);
-
   const formattedDate = new Date(event.date).toUTCString().slice(0, 16);
-  // const path = usePathname();
 
   return (
     <div className='h-full bg-background-10 mx-auto px-36 flex-col'>
