@@ -1,16 +1,24 @@
-import React from 'react'
-import Header from '../components/Header'
-import Image from 'next/image'
-import { EventData } from '../[createEvent_slug]/page'
+// 'use client';
 
-interface PropElements{
-    eventData: EventData;
+import React from 'react'
+import Header from '../../components/Header'
+import Image from 'next/image'
+import { EventData } from '../../[createEvent_slug]/page'
+import fetchEventData from '@/app/api/eventData/fetchEventData';
+// import { usePathname } from 'next/navigation';
+import { GetServerSideProps } from 'next';
+
+interface InfoProps {
+  event: EventData;
 }
 
-
-const Info = (props: PropElements) => {
-  const event = props.eventData;
+const Info: React.FC<InfoProps> = ({ event }) => {
+  // const path = usePathname();
+  // console.log(path)
+  // const slug = path.split('/').pop() || '';
+  // const event = await fetchEventData({ query: { slug } } as any);
   const formattedDate = `${event.date.toUTCString().slice(0, 16)}`;
+  // const path = usePathname();
 
   return (
     <div className='h-full bg-background-10 mx-auto px-36 flex-col'>
@@ -46,7 +54,7 @@ const Info = (props: PropElements) => {
                     <tbody>
                         {event.guests.map((guest, index) => {
                             return (
-                                <tr>
+                                <tr key={index}>
                                 <th>{index+1}</th>
                                 <td>{guest.name}</td>
                                 <td>{guest.email}</td>
@@ -63,3 +71,21 @@ const Info = (props: PropElements) => {
 }
 
 export default Info
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.params!;
+  const res = await fetchEventData(slug as string);
+  const data = await res.json();
+
+  if (res.status !== 200) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      event: data,
+    },
+  };
+};

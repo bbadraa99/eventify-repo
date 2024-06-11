@@ -1,7 +1,7 @@
 // pages/create-event.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation'
 import EventForm from '../components/EventForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -10,9 +10,12 @@ import { TaskElement } from '../eventTemplate';
 import { EventFormData } from '../components/EventForm';
 import Checklist from '../checklist/page';
 import { templates } from '../eventTemplate';
-import Info from '../info/page';
+import Info from '../events/[info_slug]/page';
 import InvitePage from '../invite/page';
 import { GuestData } from '../invite/page';
+import { db } from '../firebase/config';
+import { addDoc, collection } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 
 export interface EventData {
   title: string,
@@ -25,10 +28,15 @@ export interface EventData {
 }
 
 const CreateEvent: React.FC = () => {
-  const path = usePathname();
   const [admin] = useAuthState(auth);
+  console.log(admin);
+  const path = usePathname();
+  const router = useRouter();
+  console.log(path);
   const template_id: number = parseInt(path.charAt(path.length - 1));
-  const template_tasks: TaskElement[] = templates[template_id].tasks
+  const template_tasks: TaskElement[] = templates[template_id].tasks;
+
+  
 
   const [eventCreationPage, setEventCreationPage] = useState("form");
   const [eventData, setEventData] = useState<EventData>({
@@ -36,7 +44,7 @@ const CreateEvent: React.FC = () => {
     date: new Date(),
     description: "",
     template_id: template_id,
-    admin: "",
+    admin: admin?.email ?? "",
     guests: [],
     tasks: template_tasks
   });
@@ -64,15 +72,24 @@ const CreateEvent: React.FC = () => {
       ...prevEventData,
       guests: guests
     }))
-    setEventCreationPage("info")
+    saveEventToDatabase();
   }
-  // console.log(eventData);
+
+  const saveEventToDatabase = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "event_test"), eventData);
+      router.push(`/events/${docRef.id}`);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
   return(
     <div>
       {eventCreationPage === "form" && <EventForm updateEventData = {handleFormSubmission}></EventForm>}
       {eventCreationPage === "checklist" && <Checklist updateEventData = {handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
       {eventCreationPage === "invite" && <InvitePage updateEventData = {handleSendInvitations}></InvitePage>}
-      {eventCreationPage === "info" && <Info eventData={eventData}></Info>}
+      {/* {eventCreationPage === "info" && <Info eventData={eventData}></Info>} */}
     </div>
 
   )

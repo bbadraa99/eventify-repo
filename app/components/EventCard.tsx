@@ -25,7 +25,7 @@ const EventCard: React.FC<EventCardProps> = ({ template_id, title, description, 
         <h3 className={styles.cardTitle}>{title}</h3>
         <p>{description}</p>
         
-        <Link href={user ? `/createEvent_${template_id}` : "/sign-in"}>
+        <Link href={user ? `/createEvent_${template_id}` : "/sign-in/user"}>
           <button className={styles.getStartedLink}>Get Started</button>
         </Link> 
     </div>
