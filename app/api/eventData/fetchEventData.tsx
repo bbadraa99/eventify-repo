@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/config";
 import { doc, getDoc } from "firebase/firestore";
-import { EventData } from "@/app/[createEvent_slug]/page";
+import { EventData } from "@/app/createEvent/[slug]/page";
 
 // Assuming EventData is correctly defined elsewhere
 export const FetchEventData = (slug: string) => {

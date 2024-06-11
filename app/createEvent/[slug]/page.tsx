@@ -3,21 +3,20 @@
 
 import React, { useState } from 'react';
 import { usePathname } from 'next/navigation'
-import EventForm from '../components/EventForm';
+import EventForm from '../../components/EventForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase/config';
-import { TaskElement } from '../eventTemplate';
-import { EventFormData } from '../components/EventForm';
-import Checklist from '../checklist/page';
-import { templates } from '../eventTemplate';
-import InvitePage from '../invite/page';
-import { GuestData } from '../invite/page';
-import { db } from '../firebase/config';
+import { auth } from '../../firebase/config';
+import { TaskElement } from '../../eventTemplate';
+import { EventFormData } from '../../components/EventForm';
+import Checklist from '../../checklist/page';
+import { templates } from '../../eventTemplate';
+import InvitePage from '../../invite/page';
+import { GuestData } from '../../invite/page';
+import { db } from '../../firebase/config';
 import { addDoc, collection } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 
 export interface EventData {
-  id: string;
   title: string,
   date: Date,
   description: string,
@@ -32,14 +31,11 @@ const CreateEvent: React.FC = () => {
   const path = usePathname();
   const router = useRouter();
   const template_id: number = parseInt(path.charAt(path.length - 1));
-  console.log(template_id, path);
   const template_tasks: TaskElement[] = templates[template_id].tasks;
-
-
+  
 
   const [eventCreationPage, setEventCreationPage] = useState("form");
   const [eventData, setEventData] = useState<EventData>({
-    id: "",
     title: "",
     date: new Date(),
     description: "",
@@ -72,7 +68,7 @@ const CreateEvent: React.FC = () => {
       ...prevEventData,
       guests: guests
     }))
-    setEventCreationPage("create")
+    saveEventToDatabase()
   }
 
   const saveEventToDatabase = async () => {
@@ -84,9 +80,7 @@ const CreateEvent: React.FC = () => {
     }
   };
 
-  if (eventCreationPage === "create") {
-    saveEventToDatabase();
-  }
+  console.log(eventData);
 
   return (
     <div>

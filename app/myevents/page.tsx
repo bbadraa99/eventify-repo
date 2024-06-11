@@ -4,27 +4,25 @@ import { useState, useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Header from '@/app/components/Header';
 import Footer from '../components/Footer';
-import MyEvent from '../components/MyEvent';
-import { EventData } from '../[createEvent_slug]/page';
+import MyEvent, { MyEventType } from '../components/MyEvent';
+import { EventData } from '../createEvent/[slug]/page';
 import { collection, query, where, getDocs, QueryDocumentSnapshot, Timestamp } from 'firebase/firestore';
 import { db, auth } from '@/app/firebase/config';
 
 export default function MyEventsPage() {
     const [user] = useAuthState(auth);
-    const [userEvents, setUserEvents] = useState<EventData[]>([]);
+    const [userEvents, setUserEvents] = useState<MyEventType[]>([]);
 
     useEffect(() => {
-        console.log(user?.email)
         const fetchUserEvents = async () => {
             if (user) {
                 const eventsRef = collection(db, 'event_test');
                 const q = query(eventsRef, where('admin', '==', user.email));
                 const querySnapshot = await getDocs(q);
-                // const eventsData = querySnapshot.docs.map((doc: QueryDocumentSnapshot) => (doc.data() as EventData));
-                const eventsData = querySnapshot.docs.map((doc: QueryDocumentSnapshot) => {
-                    const data = doc.data() as EventData;
+                const eventsData = querySnapshot.docs.map((snapshot: QueryDocumentSnapshot) => {
+                    const data = snapshot.data() as EventData;
                     data.date = (data.date as unknown as Timestamp).toDate(); // Convert Firestore Timestamp to Date
-                    return { id: doc.id, ...data };
+                    return { ...data, id: snapshot.id };
                 });
                 setUserEvents(eventsData);
             }
@@ -32,8 +30,6 @@ export default function MyEventsPage() {
 
         fetchUserEvents();
     }, [user]);
-
-    console.log(">>", userEvents);
 
     return (
         <div className="bg-background-10">
@@ -46,7 +42,7 @@ export default function MyEventsPage() {
                             <h2 className="text-lg font-semibold mb-2">Organized by You</h2>
                             <ul className="list-none pl-0">
                                 {userEvents.map((event) => (
-                                    <MyEvent key={1} event={event} />
+                                    <MyEvent key={event.id} event={event} />
                                 ))}
                             </ul>
                         </section>
@@ -54,7 +50,7 @@ export default function MyEventsPage() {
                             <h2 className="text-lg font-semibold mb-2">You are invited</h2>
                             <ul className="list-none pl-0">
                                 {userEvents.map((event) => (
-                                    <MyEvent key={1} event={event} />
+                                    <MyEvent key={event.id} event={event} />
                                 ))}
                             </ul>
                         </section>

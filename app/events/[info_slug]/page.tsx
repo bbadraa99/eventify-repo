@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import Footer from '@/app/components/Footer';
 import Image from 'next/image'
-import { EventData } from '../../[createEvent_slug]/page'
+import { EventData } from '../../createEvent/[slug]/page'
 import { usePathname } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
@@ -14,8 +14,7 @@ const Info = () => {
   const path = usePathname();
   const eventId = path.split("/")[2];
 
-  const [event, setEvent] = useState<EventData>(
-      {   id: "",
+  const [event, setEvent] = useState<EventData>({
           title: "",
           date: new Date(),
           description: "",
@@ -34,7 +33,6 @@ const Info = () => {
           if (docSnap.exists()) {
             const fetchedData = docSnap.data();
             setEvent({
-                id: docSnap.id,
                 title: fetchedData.title,
                 date: fetchedData.date.toDate(),
                 description: fetchedData.description,

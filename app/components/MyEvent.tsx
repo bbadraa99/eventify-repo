@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type Event = {
+export interface MyEventType{
     id: string; 
     title: string;
     date: Date;
@@ -8,7 +8,7 @@ type Event = {
 };
 
 type MyEventProps = {
-    event: Event;
+    event: MyEventType;
 };
 
 export default function MyEvent({ event }: MyEventProps) {
