@@ -32,6 +32,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
+
         <div className='flex flex-row space-x-16 regular-20 text-black center py-48'>
           <div className='flex flex-col center bg-white rounded-xl p-10 h-[300px] w-[300px]'>
             <MdAutoFixHigh size={100}/>
@@ -46,6 +47,7 @@ const Home: React.FC = () => {
             <p className='pt-10 text-center'><span className='bold-20'>Smart</span> decision making algorithm that handles edge cases</p>
           </div>
         </div>
+
         <div className='flex flex-col pb-32'>
           <p className='pb-20 text-center bold-46 text-black'>How to use eventify</p>
           <div className='space-x-10 regular-24 flex flex-row center'>
@@ -71,6 +73,7 @@ const Home: React.FC = () => {
           <h1 className="text-black font-semibold text-3xl p-4">Event templates that you can use to create your own</h1>
           <EventGrid />
         </div>
+
       </div>
       <Footer/>
     </div>

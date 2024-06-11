@@ -61,7 +61,7 @@ export const templates = [
     { 
       id: 2, 
       title: 'Picnic',
-      description: 'Celebrate academic achievements with others.',
+      description: 'Relax, eat, and enjoy nature with friends!',
       imageSrc: '/images/picnic-2.png', 
       tasks: [
         { id: 0, text: 'Choose a location', label: 'planning', showMenu: false },
