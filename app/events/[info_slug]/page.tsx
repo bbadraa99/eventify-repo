@@ -61,7 +61,7 @@ const Info = () => {
             const currentDate = new Date();
             if(!fetchedData.isShow && 
                 ((currentDate <= fetchedData.deadline) || 
-                (fetchedData.admin.accepted && fetchedData.guests.every((d:GuestData) => d.accepted === true)))){
+                (fetchedData.admin.accepted && (fetchedData.guests.every((d:GuestData) => d.accepted === true) || fetchedData.guests.length === 0) ))){
                 
                 let users: GuestData[] = fetchedData.guests.slice();
                 users.push(fetchedData.admin);
