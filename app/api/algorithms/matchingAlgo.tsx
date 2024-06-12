@@ -37,28 +37,21 @@
 
 */
 
+import { TaskElement } from "@/app/eventTemplate";
+import { GuestData } from "@/app/invite/page";
 
-interface UserData{
-    id: string, // id of user, like email
-    prefs: string[] // preference order of task labels of user from most liked to least
-    accepted: boolean // true iff user accepted the invitation
-}
 
-interface Task {
-    id: number,
-    label: string,
-}
 
 interface matchingAlgoInput{
-    users: UserData[],
-    tasks: Task[]
+    users: GuestData[],
+    tasks: TaskElement[]
 }
 
 export default function matchingAlgo(input: matchingAlgoInput){
     const labels: string[] = [];
     const tasksByLabel: any = {}; // label => tasks
-    // const shuffledUsers: UserData[] = shuffleArray(input.users);
-    const shuffledUsers: UserData[] = input.users
+    const shuffledUsers: GuestData[] = shuffleArray(input.users);
+    // const shuffledUsers: GuestData[] = input.users
     
     let numberOfTasks = 0;
 
@@ -72,14 +65,14 @@ export default function matchingAlgo(input: matchingAlgoInput){
         numberOfTasks++;
     });
 
-    const prefTable: any = {}; // user.id => user.prefs
+    const prefTable: any = {}; // user.email => user.preferences
     for(const user of shuffledUsers){
-        if(!user.accepted) user.prefs = shuffleArray(labels);
-        prefTable[user.id] = user.prefs;
+        if(!user.accepted) user.preferences = shuffleArray(labels);
+        prefTable[user.email] = user.preferences;
     }
 
-    const userIds = shuffledUsers.map(user => user.id);
-    const res:any = {}; // user.id => assigned tasks
+    const userIds = shuffledUsers.map(user => user.email);
+    const res:any = {}; // user.email => assigned tasks
     for(const user of userIds) res[user] = [];
 
     let i = 0;
@@ -120,40 +113,40 @@ function shuffleArray(originalArray: any[]){
     return shuffledArray;
 }
 
-export function testMatchingAlgo(){
-    const users = [
-        { id: 'u1', prefs: ['l1', 'l2', 'l3', 'l4'], accepted: true },
-        { id: 'u2', prefs: ['l3', 'l2', 'l4', 'l1'], accepted: true },
-        { id: 'u3', prefs: ['l2', 'l3', 'l1', 'l4'], accepted: true }
-    ];
+// export function testMatchingAlgo(){
+//     const users = [
+//         { id: 'u1', preferences: ['l1', 'l2', 'l3', 'l4'], accepted: true },
+//         { id: 'u2', preferences: ['l3', 'l2', 'l4', 'l1'], accepted: true },
+//         { id: 'u3', preferences: ['l2', 'l3', 'l1', 'l4'], accepted: true }
+//     ];
     
-    const tasks = [
-        { id: 1, label: 'l1' }, { id: 2, label: 'l1' }, { id: 3, label: 'l1' }, { id: 4, label: 'l1' },
-        { id: 5, label: 'l2' }, { id: 6, label: 'l2' },
-        { id: 7, label: 'l3' }, { id: 8, label: 'l3' }, { id: 9, label: 'l3' },
-        { id: 10, label: 'l4' }, { id: 11, label: 'l4' }, { id: 12, label: 'l4' }
-    ];
+//     const tasks = [
+//         { id: 1, label: 'l1' }, { id: 2, label: 'l1' }, { id: 3, label: 'l1' }, { id: 4, label: 'l1' },
+//         { id: 5, label: 'l2' }, { id: 6, label: 'l2' },
+//         { id: 7, label: 'l3' }, { id: 8, label: 'l3' }, { id: 9, label: 'l3' },
+//         { id: 10, label: 'l4' }, { id: 11, label: 'l4' }, { id: 12, label: 'l4' }
+//     ];
     
-    const correctOutput: { [key: string]: number[] } = {
-        u1: [1, 2, 3, 12],
-        u2: [7, 8, 9, 11],
-        u3: [5, 6, 4, 10]
-    };
+//     const correctOutput: { [key: string]: number[] } = {
+//         u1: [1, 2, 3, 12],
+//         u2: [7, 8, 9, 11],
+//         u3: [5, 6, 4, 10]
+//     };
     
-    const result = matchingAlgo({ users, tasks });
-    let testPassed = true;
-    for (const user in correctOutput) {
-        if (JSON.stringify(result[user]) !== JSON.stringify(correctOutput[user])) {
-            testPassed = false;
-            console.log(`Mismatch for ${user}: Expected ${JSON.stringify(correctOutput[user])}, but got ${JSON.stringify(result[user])}`);
-        }
-    }
+//     const result = matchingAlgo({ users, tasks });
+//     let testPassed = true;
+//     for (const user in correctOutput) {
+//         if (JSON.stringify(result[user]) !== JSON.stringify(correctOutput[user])) {
+//             testPassed = false;
+//             console.log(`Mismatch for ${user}: Expected ${JSON.stringify(correctOutput[user])}, but got ${JSON.stringify(result[user])}`);
+//         }
+//     }
 
-    if(!testPassed){
-        console.log("Incorrect Result!");
-        console.log("Expected Output: ", correctOutput);
-        console.log("Algo's Output: ", result);
-    } else{
-        console.log("Test Passed!");
-    }
-}
+//     if(!testPassed){
+//         console.log("Incorrect Result!");
+//         console.log("Expected Output: ", correctOutput);
+//         console.log("Algo's Output: ", result);
+//     } else{
+//         console.log("Test Passed!");
+//     }
+// }

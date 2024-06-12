@@ -8,6 +8,8 @@ import { EventData } from '../../createEvent/[slug]/page'
 import { usePathname } from 'next/navigation';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
+import matchingAlgo from '@/app/api/algorithms/matchingAlgo';
+import { GuestData } from '@/app/invite/page';
 
 
 const Info = () => {
@@ -26,38 +28,53 @@ const Info = () => {
             email: "",
             accepted: false,
             preferences: [],
+            tasks: [],
           },
           guests: [],
           tasks: [],
+          isShow: false,
       }
   );
-  const currentDate = new Date();
-  const showTasks:boolean = (currentDate >= event.deadline) || (event.admin.accepted && event.guests.every(d => d.accepted === true));
   
   useEffect(() => {
-      const fetchData = async () => {
-          const docRef = doc(db, "event_test", eventId);
-          const docSnap = await getDoc(docRef);
+    
+    let isRun = false;
+    const fetchData = async () => {
+        const docRef = doc(db, "event_test", eventId);
+        const docSnap = await getDoc(docRef);
 
-          if (docSnap.exists()) {
-            const fetchedData = docSnap.data();
-            setEvent({
-                title: fetchedData.title,
-                date: fetchedData.date.toDate(),
-                deadline: fetchedData.date.toDate(),
-                description: fetchedData.description,
-                location: fetchedData.location,
-                template_id: fetchedData.template_id,
-                admin: fetchedData.admin,
-                guests: fetchedData.guests,
-                tasks: fetchedData.tasks,
-            });
-          } else {
-            console.log("No such document!");
-          }
-      };
+        if (docSnap.exists()) {
+        const fetchedData = docSnap.data();
+        setEvent({
+            title: fetchedData.title,
+            date: fetchedData.date.toDate(),
+            deadline: fetchedData.date.toDate(),
+            description: fetchedData.description,
+            location: fetchedData.location,
+            template_id: fetchedData.template_id,
+            admin: fetchedData.admin,
+            guests: fetchedData.guests,
+            tasks: fetchedData.tasks,
+            isShow: fetchedData.isShow,
+        });
+        isRun = true;
+        } else {
+        console.log("No such document!");
+        }
+    };
 
-      fetchData();
+    fetchData();
+    if (isRun) {
+        const currentDate = new Date();
+        if(!event.isShow && ((currentDate >= event.deadline) || (event.admin.accepted && event.guests.every(d => d.accepted === true)))){
+            let users: GuestData[] = event.guests;
+            users.push(event.admin);
+            const result = matchingAlgo({users, tasks: event.tasks});
+            console.log(result, event);
+            setEvent({...event, isShow: true});
+        }
+    }
+
   }, [eventId]); 
 
   const formattedDate = new Date(event.date).toUTCString().slice(0, 16);
@@ -113,7 +130,7 @@ const Info = () => {
             </div>
         </div>
         
-        <div id='checklist-section' className='font-serif text-black py-6 mt-12 mb-48 flex-col bg-background-40 border-2 rounded-2xl'>
+        {event.isShow ? <div id='checklist-section' className='font-serif text-black py-6 mt-12 mb-48 flex-col bg-background-40 border-2 rounded-2xl'>
             <h1 className='bold-28 text-center mb-7 ml-5'>Task Distribution</h1>
             <div className="overflow-x-auto mx-5">
                 <p className='text-xl mb-3'>Tasks assigned to you:</p>
@@ -161,7 +178,7 @@ const Info = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> : <p className='regular-16 text-black p-10'>Task distribution will be here soon...</p>}
     </div>
     </>
   )

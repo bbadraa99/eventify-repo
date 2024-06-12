@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import styles from './invite.module.css';
+import { TaskElement } from '../eventTemplate';
 
 interface PropElements {
     updateEventData: (guests: GuestData[]) => void;
@@ -17,6 +18,7 @@ export interface GuestData {
     email: string,
     accepted: boolean,
     preferences: string[];
+    tasks: TaskElement[];
 }
 
 const InvitePage = (props: PropElements) => {
@@ -24,7 +26,7 @@ const InvitePage = (props: PropElements) => {
     const [user] = useAuthState(auth);
 
     const [guests, setGuests] = useState([
-        { name: "Aibek", email: "aibekminbaev050402@gmail.com", accepted: false, preferences: [] },
+        { name: "Aibek", email: "aibekminbaev050402@gmail.com", accepted: false, preferences: [], tasks: [] },
     ]);
 
     const [newGuestName, setNewGuestName] = useState("");
@@ -45,7 +47,7 @@ const InvitePage = (props: PropElements) => {
 
     const handleInvite = () => {
         if (newGuestName && newGuestEmail) {
-            setGuests([...guests, { name: newGuestName, email: newGuestEmail, accepted: false, preferences: [] }]);
+            setGuests([...guests, { name: newGuestName, email: newGuestEmail, accepted: false, preferences: [], tasks: [] }]);
             setNewGuestName("");
             setNewGuestEmail("");
             setIsInvite(false);

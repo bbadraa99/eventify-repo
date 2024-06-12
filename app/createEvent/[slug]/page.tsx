@@ -25,7 +25,8 @@ export interface EventData {
   template_id: number,
   admin: GuestData,
   guests: GuestData[],
-  tasks: TaskElement[]
+  tasks: TaskElement[],
+  isShow: boolean,
 }
 
 const CreateEvent: React.FC = () => {
@@ -49,9 +50,11 @@ const CreateEvent: React.FC = () => {
       email: admin && admin.email ? admin.email : "",
       accepted: false,
       preferences: [],
+      tasks: template_tasks,
     },
     guests: [],
-    tasks: template_tasks
+    tasks: template_tasks,
+    isShow: false,
   });
 
   function handleFormSubmission(newEventData: EventFormData) {
@@ -65,7 +68,7 @@ const CreateEvent: React.FC = () => {
       description: newEventData.description,
       location: newEventData.location,
       date: newEventData.date,
-      deadline: newEventData.deadline
+      deadline: newEventData.deadline,
     }));
     setEventCreationPage("checklist")
   }
