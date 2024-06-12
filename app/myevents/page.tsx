@@ -44,8 +44,8 @@ export default function MyEventsPage() {
                     for (const guest of data.guests) {
                         if (guest.email === user.email?.toString()) {
                             eventsData.push({ ...data, id: snapshot.id });
-                            console.log(user.email);
                             setIsAcceptedRequest(data.admin.accepted);
+                            console.log("Guest accepted:" + data.admin.accepted);
                             setIsGuest(true);
                             break; 
                         }
