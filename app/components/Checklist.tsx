@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Header from '../components/Header';
+import Header from './Header';
 import React, { useState } from 'react';
 import styles from './checklist.module.css';
 import TaskElement, { templates } from '../eventTemplate';

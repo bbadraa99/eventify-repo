@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase/config';
 import TaskElement from '../../eventTemplate';
 import { EventFormData } from '../../components/EventForm';
-import Checklist from '../../checklist/page';
+import Checklist from '../../components/Checklist';
 import { templates } from '../../eventTemplate';
 import InvitePage from '../../invite/page';
 import { GuestData } from '../../invite/page';
