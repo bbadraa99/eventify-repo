@@ -25,9 +25,7 @@ const InvitePage = (props: PropElements) => {
     const [isInvite, setIsInvite] = useState(false);
     const [user] = useAuthState(auth);
 
-    const [guests, setGuests] = useState([
-        { name: "Aibek", email: "aibekminbaev050402@gmail.com", accepted: false, preferences: [], tasks: [] },
-    ]);
+    const [guests, setGuests] = useState<GuestData[]>([]);
 
     const [newGuestName, setNewGuestName] = useState("");
     const [newGuestEmail, setNewGuestEmail] = useState("");
