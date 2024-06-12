@@ -25,7 +25,6 @@ export default function MyEventsPage() {
                 const eventsData = querySnapshot.docs.map((snapshot: QueryDocumentSnapshot) => {
                     const data = snapshot.data() as EventData;
                     data.date = (data.date as unknown as Timestamp).toDate(); // Convert Firestore Timestamp to Date
-                    setIsAcceptedRequest(data.admin.accepted);
                     return { ...data, id: snapshot.id };
                 });
                 setUserEvents(eventsData);
@@ -44,9 +43,6 @@ export default function MyEventsPage() {
                     for (const guest of data.guests) {
                         if (guest.email === user.email?.toString()) {
                             eventsData.push({ ...data, id: snapshot.id });
-                            setIsAcceptedRequest(guest.accepted);
-                            console.log("Guest accepted:" + guest.accepted);
-                            setIsGuest(true);
                             break; 
                         }
                     }
@@ -70,17 +66,36 @@ export default function MyEventsPage() {
                         <section className="w-full sm:w-1/2 pr-4 sm:pr-8">
                             <h2 className="text-lg font-semibold mb-2">Organized by You</h2>
                             <ul className="list-none pl-0">
-                                {userEvents.map((event) => (
+                                {userEvents.map((event) => { 
+                                    // check whether the event is accepted by the user
+                                    if (user && event.admin.email === user.email) {
+                                        setIsAcceptedRequest(event.admin.accepted);
+                                        setIsGuest(false);
+                                    }
+                                    return (
                                     <MyEvent key={event.id} event={event} isAccepted ={isAcceptedRequest} isGuest={isGuest}/>
-                                ))}
+                                    )
+                                })}
                             </ul>
                         </section>
                         <section className="w-full sm:w-1/2 pl-4 sm:pl-8 mt-8 sm:mt-0">
                             <h2 className="text-lg font-semibold mb-2">You are invited</h2>
                             <ul className="list-none pl-0">
-                                {invitedEvents.map((event) => (
+                                {invitedEvents.map((event) => {
+                                    // check whether the event is accepted by the guests
+                                    if (user && event.guests) {
+                                        for (const guest of event.guests) {
+                                            if (guest.email === user.email?.toString()) {
+                                                setIsAcceptedRequest(guest.accepted);
+                                                setIsGuest(true);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    return (
                                     <MyEvent key={event.id} event={event} isAccepted ={isAcceptedRequest} isGuest={isGuest}/>
-                                ))}
+                                    )
+                                })}
                             </ul>
                         </section>
                     </div>
