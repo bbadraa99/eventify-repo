@@ -65,7 +65,6 @@ const Info = () => {
                 const result = matchingAlgo({users, tasks: fetchedData.tasks});
                 console.log(result, fetchedData);
             }
-        
         } else {
         console.log("No such document!");
         }

@@ -68,7 +68,7 @@ export default function matchingAlgo(input: matchingAlgoInput){
     const prefTable: any = {}; // user.email => user.preferences
     for(const user of shuffledUsers){
         if(!user.accepted) user.preferences = shuffleArray(labels);
-        prefTable[user.email] = user.preferences;
+        prefTable[user.email] = user.preferences.map(pref => pref.toLowerCase());
     }
 
     const userIds = shuffledUsers.map(user => user.email);
@@ -100,7 +100,6 @@ export default function matchingAlgo(input: matchingAlgoInput){
             }
         }
     }
-
     return res;
 }
 
