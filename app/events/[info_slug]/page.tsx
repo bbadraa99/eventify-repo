@@ -44,36 +44,34 @@ const Info = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-        const fetchedData = docSnap.data();
-        setEvent({
-            title: fetchedData.title,
-            date: fetchedData.date.toDate(),
-            deadline: fetchedData.date.toDate(),
-            description: fetchedData.description,
-            location: fetchedData.location,
-            template_id: fetchedData.template_id,
-            admin: fetchedData.admin,
-            guests: fetchedData.guests,
-            tasks: fetchedData.tasks,
-            isShow: fetchedData.isShow,
-        });
-        isRun = true;
+            const fetchedData = docSnap.data();
+            setEvent({
+                title: fetchedData.title,
+                date: fetchedData.date.toDate(),
+                deadline: fetchedData.date.toDate(),
+                description: fetchedData.description,
+                location: fetchedData.location,
+                template_id: fetchedData.template_id,
+                admin: fetchedData.admin,
+                guests: fetchedData.guests,
+                tasks: fetchedData.tasks,
+                isShow: fetchedData.isShow,
+            });
+            
+            const currentDate = new Date();
+            if(!fetchedData.isShow && ((currentDate >= fetchedData.deadline) || (fetchedData.admin.accepted && fetchedData.guests.every((d:GuestData) => d.accepted === true)))){
+                let users: GuestData[] = fetchedData.guests;
+                users.push(fetchedData.admin);
+                const result = matchingAlgo({users, tasks: fetchedData.tasks});
+                console.log(result, fetchedData);
+            }
+        
         } else {
         console.log("No such document!");
         }
     };
 
     fetchData();
-    if (isRun) {
-        const currentDate = new Date();
-        if(!event.isShow && ((currentDate >= event.deadline) || (event.admin.accepted && event.guests.every(d => d.accepted === true)))){
-            let users: GuestData[] = event.guests;
-            users.push(event.admin);
-            const result = matchingAlgo({users, tasks: event.tasks});
-            console.log(result, event);
-            setEvent({...event, isShow: true});
-        }
-    }
 
   }, [eventId]); 
 
