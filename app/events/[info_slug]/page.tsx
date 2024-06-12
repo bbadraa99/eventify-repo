@@ -59,7 +59,10 @@ const Info = () => {
             });
             
             const currentDate = new Date();
-            if(!fetchedData.isShow && ((currentDate >= fetchedData.deadline) || (fetchedData.admin.accepted && fetchedData.guests.every((d:GuestData) => d.accepted === true)))){
+            if(!fetchedData.isShow && 
+                ((currentDate <= fetchedData.deadline) || 
+                (fetchedData.admin.accepted && fetchedData.guests.every((d:GuestData) => d.accepted === true)))){
+                
                 let users: GuestData[] = fetchedData.guests.slice();
                 users.push(fetchedData.admin);
                 const result = matchingAlgo({users, tasks: fetchedData.tasks});
