@@ -4,15 +4,20 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import React, { useState } from 'react';
 import styles from './checklist.module.css';
-import TaskElement from '../eventTemplate';
+import TaskElement, { templates } from '../eventTemplate';
+import { usePathname } from 'next/navigation';
 
 interface PropElements {
   updateEventData: (newTaskData: TaskElement[]) => void;
-  template_tasks: TaskElement[];
+  // template_tasks: TaskElement[];
 }
 
 const Checklist = (props: PropElements) => {
-  const [tasks, setTasks] = useState(props.template_tasks);
+  const path = usePathname();
+  const template_id: number = parseInt(path.charAt(path.length - 1));
+  const template_tasks: TaskElement[] = templates[template_id].tasks;
+
+  const [tasks, setTasks] = useState(template_tasks);
   const [newTaskText, setNewTaskText] = useState('');
   const [newTaskLabel, setNewTaskLabel] = useState('');
   const [addingTask, setAddingTask] = useState(false);

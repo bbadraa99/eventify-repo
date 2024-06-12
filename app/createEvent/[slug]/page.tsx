@@ -97,7 +97,7 @@ const CreateEvent: React.FC = () => {
   return (
     <div>
       {eventCreationPage === "form" && <EventForm updateEventData={handleFormSubmission}></EventForm>}
-      {eventCreationPage === "checklist" && <Checklist updateEventData={handleChecklistCreate} template_tasks={template_tasks}></Checklist>}
+      {eventCreationPage === "checklist" && <Checklist updateEventData={handleChecklistCreate}></Checklist>}
       {eventCreationPage === "invite" && <InvitePage updateEventData={handleSendInvitations}></InvitePage>}
     </div>
   )
