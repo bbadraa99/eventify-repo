@@ -21,7 +21,7 @@ export interface EventData {
   date: Date,
   description: string,
   template_id: number,
-  admin: string,
+  admin: GuestData,
   guests: GuestData[],
   tasks: TaskElement[]
 }
@@ -40,7 +40,12 @@ const CreateEvent: React.FC = () => {
     date: new Date(),
     description: "",
     template_id: template_id,
-    admin: admin?.email ?? "",
+    admin: {
+      name: "admin",
+      email: admin && admin.email ? admin.email : "",
+      accepted: false,
+      preferences: [],
+    },
     guests: [],
     tasks: template_tasks
   });
@@ -48,6 +53,10 @@ const CreateEvent: React.FC = () => {
   function handleFormSubmission(newEventData: EventFormData) {
     setEventData(prevEventData => ({
       ...prevEventData,
+      admin: {
+        ...prevEventData.admin,
+        name: newEventData.admin_name,
+      } ,
       title: newEventData.title,
       date: newEventData.date,
       description: newEventData.description

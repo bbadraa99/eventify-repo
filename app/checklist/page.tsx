@@ -20,7 +20,7 @@ const Checklist = (props: PropElements) => {
   const [editTaskText, setEditTaskText] = useState('');
   const [editTaskLabel, setEditTaskLabel] = useState('');
 
-  const labelOptions = ["planning", "booking", "communication", "catering", "setup"];
+  const labelOptions = ["Planning", "Booking", "Communication", "Catering", "Setup", "Decor"];
   
   const handleAddTaskClick = () => {
     setAddingTask(true);

@@ -11,7 +11,12 @@ export const FetchEventData = (slug: string) => {
             date: new Date(),
             description: "",
             template_id: 0,
-            admin: "",
+            admin: {
+                name: "admin",
+                email: "",
+                accepted: false,
+                preferences: [],
+              },
             guests: [],
             tasks: [],
         }

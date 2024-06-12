@@ -11,6 +11,7 @@ interface PropElements{
 }
 
 export interface EventFormData{
+    admin_name: string,
     title: string,
     description: string,
     date: Date
@@ -26,6 +27,7 @@ function EventForm(props: PropElements){
         imgSrc = "/images/picnic-2.png"
     }
 
+    const userNameRef = useRef<HTMLInputElement>(null);
     const eventNameRef = useRef<HTMLInputElement>(null);
     const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
     const eventDateRef = useRef<HTMLInputElement>(null);
@@ -34,7 +36,7 @@ function EventForm(props: PropElements){
     const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.preventDefault();
         
-        if(!eventNameRef.current || !eventNameRef.current.value || eventNameRef.current.value === ""
+        if(!userNameRef.current || !userNameRef.current.value || userNameRef.current.value===""  || !eventNameRef.current || !eventNameRef.current.value || eventNameRef.current.value === ""
         || !eventDescriptionRef.current || !eventDescriptionRef.current.value || eventDescriptionRef.current.value === ""
         || !eventDateRef.current || !eventDateRef.current.value || eventDateRef.current.value === ""){
             setErrorMessage('All fields are required.');
@@ -42,6 +44,7 @@ function EventForm(props: PropElements){
         }
         
         const newEventData = {
+            admin_name: userNameRef.current.value,
             title: eventNameRef.current.value,
             description: eventDescriptionRef.current.value,
             date: new Date(eventDateRef.current.value), // Convert date string to Timestamp
@@ -59,6 +62,11 @@ function EventForm(props: PropElements){
             <form className={styles.form}>
 
                 <h2 className={styles.subtitle}>Event information</h2>
+                <div className={styles.field}>
+                <label htmlFor="eventName">Full name (user)</label>
+                <input ref = {userNameRef} className={styles.textarea} type="text" id="userName" name="userName" />
+                </div>
+
                 <div className={styles.field}>
                 <label htmlFor="eventName">Event name</label>
                 <input ref = {eventNameRef} className={styles.textarea} type="text" id="eventName" name="eventName" />

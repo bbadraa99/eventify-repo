@@ -1,25 +1,37 @@
 import Link from 'next/link';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase/config';
+import { GuestData } from '../invite/page';
+import Pref from '../events/[info_slug]/pref/page';
+
 
 export interface MyEventType{
+    guests: GuestData[];
     id: string; 
     title: string;
     date: Date;
-    admin: string;
+    admin: GuestData;
 };
 
 type MyEventProps = {
     event: MyEventType;
+    isAccepted: boolean;
+    isGuest: boolean;
 };
 
-export default function MyEvent({ event }: MyEventProps) {
+export default function MyEvent(props : MyEventProps) {
+    //get user
+    const [user] = useAuthState(auth);
+    const userEmail = user?.email;
+    console.log(props.isAccepted);
+
     return (
         <li key={1} className="mb-4">
-            {/* <Link href={`/events/${event.id}`}> */}
-            <Link href={`/events/${event.id}`}>
+            <Link href={props.isAccepted ? `/events/${props.event.id}` : `/events/${props.event.id}/pref`}>
                 <div className="block rounded-lg p-4 bg-gray-100 hover:bg-gray-200 transition duration-300 ease-in-out shadow-md cursor-pointer">
-                    <h3 className="font-bold">{event.title}</h3>
-                    <p>Date: {event.date.toDateString()}</p>
-                    <p>Organizer: {event.admin}</p>
+                    <h3 className="font-bold">{props.event.title}</h3>
+                    <p>Date: {props.event.date.toDateString()}</p>
+                    <p>Organizer: {props.event.admin.name}</p>
                 </div>
             </Link>
         </li>

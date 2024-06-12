@@ -13,16 +13,19 @@ export default function MyEventsPage() {
     const [user] = useAuthState(auth);
     const [userEvents, setUserEvents] = useState<MyEventType[]>([]);
     const [invitedEvents, setInvitedEvents] = useState<MyEventType[]>([]);
+    const [isAcceptedRequest, setIsAcceptedRequest] = useState<boolean>(false);
+    const [isGuest, setIsGuest] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchUserEvents = async () => {
             if (user) {
                 const eventsRef = collection(db, 'event_test');
-                const q = query(eventsRef, where('admin', '==', user.email));
+                const q = query(eventsRef, where('admin.email', '==', user.email));
                 const querySnapshot = await getDocs(q);
                 const eventsData = querySnapshot.docs.map((snapshot: QueryDocumentSnapshot) => {
                     const data = snapshot.data() as EventData;
                     data.date = (data.date as unknown as Timestamp).toDate(); // Convert Firestore Timestamp to Date
+                    setIsAcceptedRequest(data.admin.accepted);
                     return { ...data, id: snapshot.id };
                 });
                 setUserEvents(eventsData);
@@ -42,6 +45,8 @@ export default function MyEventsPage() {
                         if (guest.email === user.email?.toString()) {
                             eventsData.push({ ...data, id: snapshot.id });
                             console.log(user.email);
+                            setIsAcceptedRequest(data.admin.accepted);
+                            setIsGuest(true);
                             break; 
                         }
                     }
@@ -66,7 +71,7 @@ export default function MyEventsPage() {
                             <h2 className="text-lg font-semibold mb-2">Organized by You</h2>
                             <ul className="list-none pl-0">
                                 {userEvents.map((event) => (
-                                    <MyEvent key={event.id} event={event} />
+                                    <MyEvent key={event.id} event={event} isAccepted ={isAcceptedRequest} isGuest={isGuest}/>
                                 ))}
                             </ul>
                         </section>
@@ -74,7 +79,7 @@ export default function MyEventsPage() {
                             <h2 className="text-lg font-semibold mb-2">You are invited</h2>
                             <ul className="list-none pl-0">
                                 {invitedEvents.map((event) => (
-                                    <MyEvent key={event.id} event={event} />
+                                    <MyEvent key={event.id} event={event} isAccepted ={isAcceptedRequest} isGuest={isGuest}/>
                                 ))}
                             </ul>
                         </section>

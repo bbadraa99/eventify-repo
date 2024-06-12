@@ -14,7 +14,9 @@ export interface Organizer {
 
 export interface GuestData {
     name: string,
-    email: string
+    email: string,
+    accepted: boolean,
+    preferences: string[];
 }
 
 const InvitePage = (props: PropElements) => {
@@ -22,7 +24,7 @@ const InvitePage = (props: PropElements) => {
     const [user] = useAuthState(auth);
 
     const [guests, setGuests] = useState([
-        { name: "Aibek", email: "aibekminbaev050402@gmail.com" },
+        { name: "Aibek", email: "aibekminbaev050402@gmail.com", accepted: false, preferences: [] },
     ]);
 
     const [newGuestName, setNewGuestName] = useState("");
@@ -30,6 +32,8 @@ const InvitePage = (props: PropElements) => {
     const [isEditing, setIsEditing] = useState<number | null>(null);
     const [editGuestName, setEditGuestName] = useState("");
     const [editGuestEmail, setEditGuestEmail] = useState("");
+    const [editGuestAccepted, setEditGuestAccepted] = useState(false);
+    const [editGuestPreferences, setEditGuestPreferences] = useState<string[]>([]);
 
     const openInvite = () => {
         setIsInvite(true);
@@ -41,7 +45,7 @@ const InvitePage = (props: PropElements) => {
 
     const handleInvite = () => {
         if (newGuestName && newGuestEmail) {
-            setGuests([...guests, { name: newGuestName, email: newGuestEmail }]);
+            setGuests([...guests, { name: newGuestName, email: newGuestEmail, accepted: false, preferences: [] }]);
             setNewGuestName("");
             setNewGuestEmail("");
             setIsInvite(false);
@@ -66,7 +70,7 @@ const InvitePage = (props: PropElements) => {
 
     const handleSaveEdit = (index: number) => {
         const updatedGuests = guests.map((guest, i) => 
-            i === index ? { name: editGuestName, email: editGuestEmail } : guest
+            i === index ? {...guest, name: editGuestName, email: editGuestEmail } : guest
         );
         setGuests(updatedGuests);
         setIsEditing(null);

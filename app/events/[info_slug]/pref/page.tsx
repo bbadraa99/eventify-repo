@@ -1,16 +1,29 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Header from '../components/Header';
+import Header from '../../../components/Header';
 import styles from './pref.module.css';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, db } from '@/app/firebase/config';
+import { usePathname } from 'next/navigation';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { GuestData } from '@/app/invite/page';
 
-const Home: React.FC = () => {
+const Pref: React.FC = () => {
+  //get user
+  const [user] = useAuthState(auth);
+  const userEmail = user?.email;
+
+  const path = usePathname();
+  const eventId = path.split("/")[2];
+
   const [tasks, setTasks] = useState([
     { id: 1, name: 'Planning', order: 0 },
     { id: 2, name: 'Booking', order: 0 },
     { id: 3, name: 'Communication', order: 0 },
     { id: 4, name: 'Catering', order: 0 },
     { id: 5, name: 'Setup', order: 0 },
+    { id: 6, name: 'Decor', order: 0 },
   ]);
 
   const [currentOrder, setCurrentOrder] = useState(1);
@@ -56,6 +69,8 @@ const Home: React.FC = () => {
     });
   };
 
+  
+
   const handleSubmit = () => {
     if (!allSelected) {
       setErrorMessage('Please select all the labels');
@@ -63,10 +78,51 @@ const Home: React.FC = () => {
     }
     setErrorMessage(null);
     const sortedTasks = tasks.filter(task => task.order > 0).sort((a, b) => a.order - b.order);
-    console.log('User Preferences in Order:');
-    sortedTasks.forEach(task => {
-      console.log(`${task.order}. ${task.name}`);
-    });
+    // update the database 
+    const updateData = async () => {
+        const docRef = doc(db, "event_test", eventId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const fetchedData = docSnap.data();
+          //retrieve names of sorted tasks as string array
+          const sortedTaskNames = sortedTasks.map(task => task.name);
+          if (fetchedData.admin.email === userEmail) {
+            //update admin.preferences to sortedTaskNames
+            const updateData = {
+              ...fetchedData,
+              admin: {
+                name: fetchedData.admin.name,
+                email: fetchedData.admin.email,
+                accepted: true,
+                preferences: sortedTaskNames
+              }
+            };
+            await updateDoc(docRef, updateData);
+          } else {
+            const updateData = {
+             ...fetchedData,
+              guests: fetchedData.guests.map((guest: GuestData) => {
+                if (guest.email === userEmail) {
+                  return {
+                    name: guest.name,
+                    email: guest.email,
+                    accepted: true,
+                    preferences: sortedTaskNames
+                  }
+                }
+                return guest;
+              })
+            };
+            await updateDoc(docRef, updateData);
+          }
+          
+        } else {
+          console.log("No such document!");
+        }
+    };
+
+    updateData();
   };
 
   return (
@@ -113,4 +169,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Pref;
