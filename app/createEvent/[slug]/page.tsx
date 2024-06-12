@@ -19,6 +19,8 @@ import { useRouter } from 'next/navigation';
 export interface EventData {
   title: string,
   date: Date,
+  deadline: Date,
+  location: string,
   description: string,
   template_id: number,
   admin: GuestData,
@@ -38,6 +40,8 @@ const CreateEvent: React.FC = () => {
   const [eventData, setEventData] = useState<EventData>({
     title: "",
     date: new Date(),
+    deadline: new Date(),
+    location: "",
     description: "",
     template_id: template_id,
     admin: {
@@ -58,8 +62,10 @@ const CreateEvent: React.FC = () => {
         name: newEventData.admin_name,
       } ,
       title: newEventData.title,
+      description: newEventData.description,
+      location: newEventData.location,
       date: newEventData.date,
-      description: newEventData.description
+      deadline: newEventData.deadline
     }));
     setEventCreationPage("checklist")
   }

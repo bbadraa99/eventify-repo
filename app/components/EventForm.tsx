@@ -13,8 +13,10 @@ interface PropElements{
 export interface EventFormData{
     admin_name: string,
     title: string,
+    location: string,
     description: string,
-    date: Date
+    date: Date,
+    deadline: Date
 }
 
 function EventForm(props: PropElements){
@@ -31,6 +33,8 @@ function EventForm(props: PropElements){
     const eventNameRef = useRef<HTMLInputElement>(null);
     const eventDescriptionRef = useRef<HTMLTextAreaElement>(null);
     const eventDateRef = useRef<HTMLInputElement>(null);
+    const eventLocationRef = useRef<HTMLInputElement>(null);
+    const eventDeadlineRef = useRef<HTMLInputElement>(null);
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -38,8 +42,14 @@ function EventForm(props: PropElements){
         
         if(!userNameRef.current || !userNameRef.current.value || userNameRef.current.value===""  || !eventNameRef.current || !eventNameRef.current.value || eventNameRef.current.value === ""
         || !eventDescriptionRef.current || !eventDescriptionRef.current.value || eventDescriptionRef.current.value === ""
-        || !eventDateRef.current || !eventDateRef.current.value || eventDateRef.current.value === ""){
+        || !eventDateRef.current || !eventDateRef.current.value || eventDateRef.current.value === ""
+        || !eventDeadlineRef.current || !eventDeadlineRef.current.value || eventDeadlineRef.current.value === ""
+        || !eventLocationRef.current || !eventLocationRef.current.value || eventLocationRef.current.value === ""){
             setErrorMessage('All fields are required.');
+            return;
+        }
+        if(eventDateRef.current.value >= eventDeadlineRef.current.value){
+            setErrorMessage('Deadline should be before Date of event');
             return;
         }
         
@@ -47,7 +57,9 @@ function EventForm(props: PropElements){
             admin_name: userNameRef.current.value,
             title: eventNameRef.current.value,
             description: eventDescriptionRef.current.value,
+            location: eventLocationRef.current.value,
             date: new Date(eventDateRef.current.value), // Convert date string to Timestamp
+            deadline: new Date(eventDeadlineRef.current.value)
         };
         props.updateEventData(newEventData);
         setErrorMessage('');
@@ -78,8 +90,19 @@ function EventForm(props: PropElements){
                 </div>
 
                 <div className={styles.field}>
+                <label htmlFor="location">Location</label>
+                <input ref = {eventLocationRef} className={styles.textarea} type="text" id="location" name="location" />
+                </div>
+
+                <div className={styles.field}>
                 <label htmlFor="date">Date</label>
-                <input ref = {eventDateRef} className={styles.textarea} type="date" id="date" name="date" />
+                <input ref = {eventDateRef} className={styles.textarea} type="datetime-local" id="date" name="date" />
+                </div>
+
+                <div className={styles.field}>
+                <label htmlFor="deadline">Acceptance Deadline</label>
+                <input ref = {eventDeadlineRef} className={styles.textarea} type="datetime-local" id="deadline" name="deadline" />
+
                 </div>
                 <button onClick={handleButtonClick} className={styles.createLink}>Continue</button>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}

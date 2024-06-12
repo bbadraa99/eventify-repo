@@ -17,6 +17,8 @@ const Info = () => {
   const [event, setEvent] = useState<EventData>({
           title: "",
           date: new Date(),
+          deadline: new Date(),
+          location: "",
           description: "",
           template_id: 0,
           admin: {
@@ -29,7 +31,7 @@ const Info = () => {
           tasks: [],
       }
   );
-
+  
   useEffect(() => {
       const fetchData = async () => {
           const docRef = doc(db, "event_test", eventId);
@@ -40,7 +42,9 @@ const Info = () => {
             setEvent({
                 title: fetchedData.title,
                 date: fetchedData.date.toDate(),
+                deadline: fetchedData.date.toDate(),
                 description: fetchedData.description,
+                location: fetchedData.location,
                 template_id: fetchedData.template_id,
                 admin: fetchedData.admin,
                 guests: fetchedData.guests,
@@ -70,6 +74,7 @@ const Info = () => {
                 <h1 className='bold-32'>{event.title}</h1>
                 <p className='regular-16'><span className='font-bold'>Date: </span> {formattedDate} </p>
                 {/* <p className='regular-16 font-bold'>Event Description</p> */}
+                <p className='regular-16'><b>Location:</b> {event.location}</p>
                 <p className='regular-16'><b>Description:</b> {event.description}</p>
                 <button onClick={scrollToMain} className='btn text-white bg-black'>View checklist</button>
             </div>
