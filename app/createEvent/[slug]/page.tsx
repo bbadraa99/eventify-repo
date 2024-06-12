@@ -70,13 +70,10 @@ const CreateEvent: React.FC = () => {
   }
 
   const saveEventToDatabase = async (data: EventData) => {
-    console.log("here");
     const docRef = await addDoc(collection(db, "event_test"), data);
     router.push(`/events/${docRef.id}`);
     
   };
-
-  console.log(eventData);
 
   return (
     <div>
