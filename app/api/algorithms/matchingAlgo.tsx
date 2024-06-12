@@ -37,7 +37,7 @@
 
 */
 
-import { TaskElement } from "@/app/eventTemplate";
+import TaskElement from "@/app/eventTemplate";
 import { GuestData } from "@/app/invite/page";
 
 

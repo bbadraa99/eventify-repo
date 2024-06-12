@@ -1,4 +1,4 @@
-export interface TaskElement {
+export default interface TaskElement {
   id: number, 
   text: string, 
   label: string,

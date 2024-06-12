@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Header from '../components/Header';
 import React, { useState } from 'react';
 import styles from './checklist.module.css';
-import { TaskElement } from '../eventTemplate';
+import TaskElement from '../eventTemplate';
 
 interface PropElements {
   updateEventData: (newTaskData: TaskElement[]) => void;

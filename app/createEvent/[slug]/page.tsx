@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import EventForm from '../../components/EventForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../firebase/config';
-import { TaskElement } from '../../eventTemplate';
+import TaskElement from '../../eventTemplate';
 import { EventFormData } from '../../components/EventForm';
 import Checklist from '../../checklist/page';
 import { templates } from '../../eventTemplate';

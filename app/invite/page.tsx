@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import styles from './invite.module.css';
-import { TaskElement } from '../eventTemplate';
+import TaskElement from '../eventTemplate';
 
 interface PropElements {
     updateEventData: (guests: GuestData[]) => void;
