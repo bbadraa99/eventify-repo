@@ -7,8 +7,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/app/firebase/config';
 import { usePathname } from 'next/navigation';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { GuestData } from '@/app/invite/page';
 import Link from 'next/link';
+import { GuestData } from '@/app/components/InvitePage';
 
 const Pref: React.FC = () => {
   //get user

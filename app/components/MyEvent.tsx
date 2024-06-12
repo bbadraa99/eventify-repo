@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/config';
-import { GuestData } from '../invite/page';
+import { GuestData } from './InvitePage';
 import Pref from '../events/[info_slug]/pref/page';
 
 

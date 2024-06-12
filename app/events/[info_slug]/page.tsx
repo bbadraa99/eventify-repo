@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '@/app/firebase/config';
 import matchingAlgo from '@/app/api/algorithms/matchingAlgo';
-import { GuestData } from '@/app/invite/page';
+import { GuestData } from '@/app/components/InvitePage';
 import TaskElement from '@/app/eventTemplate';
 import { useAuthState } from 'react-firebase-hooks/auth';
 

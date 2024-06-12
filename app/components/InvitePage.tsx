@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import Header from '../components/Header';
+import Header from './Header';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/app/firebase/config";
 import styles from './invite.module.css';
