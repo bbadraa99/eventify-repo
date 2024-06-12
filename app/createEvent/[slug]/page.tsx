@@ -1,7 +1,7 @@
 // pages/create-event.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { usePathname } from 'next/navigation'
 import EventForm from '../../components/EventForm';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -64,20 +64,16 @@ const CreateEvent: React.FC = () => {
   }
 
   function handleSendInvitations(guests: GuestData[]) {
-    setEventData(prevEventData => ({
-      ...prevEventData,
-      guests: guests
-    }))
-    saveEventToDatabase()
+    const eventDataWithGuests = eventData;
+    eventDataWithGuests.guests = guests;
+    saveEventToDatabase(eventDataWithGuests);
   }
 
-  const saveEventToDatabase = async () => {
-    try {
-      const docRef = await addDoc(collection(db, "event_test"), eventData);
-      router.push(`/events/${docRef.id}`);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
+  const saveEventToDatabase = async (data: EventData) => {
+    console.log("here");
+    const docRef = await addDoc(collection(db, "event_test"), data);
+    router.push(`/events/${docRef.id}`);
+    
   };
 
   console.log(eventData);
