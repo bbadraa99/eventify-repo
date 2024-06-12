@@ -6,7 +6,7 @@ import Footer from '@/app/components/Footer';
 import Image from 'next/image'
 import { EventData } from '../../createEvent/[slug]/page'
 import { usePathname } from 'next/navigation';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/app/firebase/config';
 import matchingAlgo from '@/app/api/algorithms/matchingAlgo';
 import { GuestData } from '@/app/invite/page';
@@ -60,10 +60,15 @@ const Info = () => {
             
             const currentDate = new Date();
             if(!fetchedData.isShow && ((currentDate >= fetchedData.deadline) || (fetchedData.admin.accepted && fetchedData.guests.every((d:GuestData) => d.accepted === true)))){
-                let users: GuestData[] = fetchedData.guests;
+                let users: GuestData[] = fetchedData.guests.slice();
                 users.push(fetchedData.admin);
                 const result = matchingAlgo({users, tasks: fetchedData.tasks});
-                console.log(result, fetchedData);
+                const r = doc(db, "event_test", eventId);
+                console.log(fetchedData);
+                await updateDoc(r, {
+                   ...fetchedData,
+                    isShow: true,
+                });
             }
         } else {
         console.log("No such document!");
