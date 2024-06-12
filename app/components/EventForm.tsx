@@ -101,7 +101,7 @@ function EventForm(props: PropElements){
 
                 <div className={styles.field}>
                 <label htmlFor="deadline">Acceptance Deadline</label>
-                <input ref = {eventDeadlineRef} className={styles.textarea} type="datetime-local" id="deadline" name="deadline" />
+                <input ref = {eventDeadlineRef} className="text-black bg-white" type="datetime-local" id="deadline" name="deadline" />
 
                 </div>
                 <button onClick={handleButtonClick} className={styles.createLink}>Continue</button>
