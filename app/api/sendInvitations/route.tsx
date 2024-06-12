@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
                         <h1 style="text-align: center;">Invitation to the event</h1>
                         <p>Dear [guest_name],</p>
                         <p>You are invited to the event organized by [user_name] on [event_date].</p>
-                        <p>Follow this link to choose your preferences on the tasks: <a href="http://localhost:3000/sign-in/guest">Click here</a>.</p>
+                        <p>Follow this link to choose your preferences on the tasks: <a href="http://eventify-wine.vercel.app/sign-in/guest">Click here</a>.</p>
                         <p>Thank you!</p>
                     </div>
                 </body>
