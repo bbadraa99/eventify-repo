@@ -60,7 +60,7 @@ const Info = () => {
     <>
     <Header />
     <div className='h-full bg-background-10 mx-auto py-12 px-36 flex-col'>
-        <div className='bg-background-40 flex flex-col md:flex-row font-serif text-black  py-6 gap-16 border-2 rounded-2xl justify-around'>
+        <div className='bg-background-40 flex flex-col md:flex-row font-serif text-black  py-6 px-20 gap-16 border-2 rounded-2xl justify-around'>
             <div className='flex-col space-y-6 w-1/2'>
                 <h1 className='bold-32'>{event.title}</h1>
                 <p className='regular-16'><span className='font-bold'>Date: </span> {formattedDate} </p>

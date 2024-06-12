@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Header from '@/app/components/Header';
 import Footer from '../components/Footer';
@@ -12,6 +12,7 @@ import { db, auth } from '@/app/firebase/config';
 export default function MyEventsPage() {
     const [user] = useAuthState(auth);
     const [userEvents, setUserEvents] = useState<MyEventType[]>([]);
+    const [invitedEvents, setInvitedEvents] = useState<MyEventType[]>([]);
 
     useEffect(() => {
         const fetchUserEvents = async () => {
@@ -28,6 +29,29 @@ export default function MyEventsPage() {
             }
         };
 
+        const fetchInvitedEvents = async () => {
+            //if inside guests object list, the object.email == user.email
+            if (user) {
+                const eventsRef = collection(db, 'event_test');
+                const querySnapshot = await getDocs(eventsRef);
+                const eventsData: SetStateAction<MyEventType[]> = [];
+                querySnapshot.docs.map((snapshot) => {
+                    const data = snapshot.data() as EventData;
+                    data.date = (data.date as unknown as Timestamp).toDate(); // Convert Firestore Timestamp to Date
+                    for (const guest of data.guests) {
+                        if (guest.email === user.email?.toString()) {
+                            eventsData.push({ ...data, id: snapshot.id });
+                            console.log(user.email);
+                            break; 
+                        }
+                    }
+                });
+
+                setInvitedEvents(eventsData);
+            }
+        };
+            
+        fetchInvitedEvents();
         fetchUserEvents();
     }, [user]);
 
@@ -49,7 +73,7 @@ export default function MyEventsPage() {
                         <section className="w-full sm:w-1/2 pl-4 sm:pl-8 mt-8 sm:mt-0">
                             <h2 className="text-lg font-semibold mb-2">You are invited</h2>
                             <ul className="list-none pl-0">
-                                {userEvents.map((event) => (
+                                {invitedEvents.map((event) => (
                                     <MyEvent key={event.id} event={event} />
                                 ))}
                             </ul>
