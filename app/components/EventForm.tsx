@@ -48,7 +48,7 @@ function EventForm(props: PropElements){
             setErrorMessage('All fields are required.');
             return;
         }
-        if(eventDateRef.current.value >= eventDeadlineRef.current.value){
+        if(eventDateRef.current.value <= eventDeadlineRef.current.value){
             setErrorMessage('Deadline should be before Date of event');
             return;
         }
