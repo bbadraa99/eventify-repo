@@ -8,6 +8,7 @@ import { auth, db } from '@/app/firebase/config';
 import { usePathname } from 'next/navigation';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { GuestData } from '@/app/invite/page';
+import Link from 'next/link';
 
 const Pref: React.FC = () => {
   //get user
@@ -159,10 +160,13 @@ const Pref: React.FC = () => {
         </div>
 
         {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-
-        <button onClick={handleSubmit} className={styles.button}>
-          Proceed
-        </button>
+        
+        <Link href={`/events/${eventId}`}>
+          <button onClick={handleSubmit} className={styles.button}>
+            Proceed
+          </button>
+        </Link>
+        
       </main>
     </div>
     </>
