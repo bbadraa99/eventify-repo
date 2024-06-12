@@ -7,14 +7,24 @@ import Image from 'next/image'
 import { EventData } from '../../createEvent/[slug]/page'
 import { usePathname } from 'next/navigation';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '@/app/firebase/config';
+import { auth, db } from '@/app/firebase/config';
 import matchingAlgo from '@/app/api/algorithms/matchingAlgo';
 import { GuestData } from '@/app/invite/page';
+import { TaskElement } from '@/app/eventTemplate';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
+interface ResultElement {
+    [key: string]: TaskElement[];
+}
 
 const Info = () => {
+    //retrieve user
+    const [user, loading, error] = useAuthState(auth);
+    
   const path = usePathname();
   const eventId = path.split("/")[2];
+
+  const [result, setResult] = useState<ResultElement>()
 
   const [event, setEvent] = useState<EventData>({
           title: "",
@@ -65,7 +75,10 @@ const Info = () => {
                 
                 let users: GuestData[] = fetchedData.guests.slice();
                 users.push(fetchedData.admin);
-                const result = matchingAlgo({users, tasks: fetchedData.tasks});
+                const res = matchingAlgo({users, tasks: fetchedData.tasks});
+                [...fetchedData.guests, fetchedData.admin].forEach((d:GuestData) => {
+                    d.tasks = res[d.email];
+                })
                 const r = doc(db, "event_test", eventId);
                 console.log(fetchedData);
                 await updateDoc(r, {
@@ -122,6 +135,7 @@ const Info = () => {
                     </thead>
                     <tbody>
                         {event.guests.map((guest, index) => {
+                            
                             return (
                                 <tr key={index}>
                                 <th>{index+1}</th>
@@ -149,14 +163,16 @@ const Info = () => {
                     </tr>
                     </thead>
                     <tbody>
-                        {event.guests.map((guest, index) => {
-                            return (
-                                <tr key={index}>
-                                <th>{index+1}</th>
-                                <td>{guest.name}</td>
-                                <td>{guest.email}</td>
-                                </tr>
-                            )
+                        {[...event.guests, event.admin].map((guest, index) => {
+                            if (user && user.email == guest.email){
+                                return guest.tasks.map((task, taskIndex) => (
+                                    <tr key={`${index}-${taskIndex}`}>
+                                        <th>{taskIndex + 1}</th>
+                                        <td>{task.text}</td> 
+                                        <td>{guest.name}</td>
+                                    </tr>
+                                ));
+                            }
                         })}
                     </tbody>
                 </table>
@@ -171,14 +187,16 @@ const Info = () => {
                     </tr>
                     </thead>
                     <tbody>
-                        {event.guests.map((guest, index) => {
-                            return (
-                                <tr key={index}>
-                                <th>{index+1}</th>
-                                <td>{guest.name}</td>
-                                <td>{guest.email}</td>
-                                </tr>
-                            )
+                        {[...event.guests, event.admin].map((guest, index) => {
+                            if (user && user.email != guest.email){
+                                return guest.tasks.map((task, taskIndex) => (
+                                    <tr key={`${index}-${taskIndex}`}>
+                                        <th>{taskIndex + 1}</th>
+                                        <td>{task.text}</td> 
+                                        <td>{guest.name}</td>
+                                    </tr>
+                                ));
+                            }
                         })}
                     </tbody>
                 </table>

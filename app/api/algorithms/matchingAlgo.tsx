@@ -61,7 +61,7 @@ export default function matchingAlgo(input: matchingAlgoInput){
             labels.push(curLabel);
             tasksByLabel[curLabel] = [];
         }
-        tasksByLabel[curLabel].push(task.id);
+        tasksByLabel[curLabel].push(task);
         numberOfTasks++;
     });
 
