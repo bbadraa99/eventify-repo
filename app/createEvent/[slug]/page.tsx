@@ -84,6 +84,7 @@ const CreateEvent: React.FC = () => {
   function handleSendInvitations(guests: GuestData[]) {
     const eventDataWithGuests = eventData;
     eventDataWithGuests.guests = guests;
+    console.log(eventDataWithGuests);
     saveEventToDatabase(eventDataWithGuests);
   }
 
