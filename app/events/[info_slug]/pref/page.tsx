@@ -46,12 +46,12 @@ const Pref: React.FC = () => {
           if (task.order === 0) {
             // Assign the current order to the clicked task
             newOrder = currentOrder;
-            setCurrentOrder(prevOrder => prevOrder + 0.5);
+            setCurrentOrder(prevOrder => prevOrder + 1);
             return { ...task, order: newOrder };
           } else {
             // Remove the order from the clicked task
             const decreasedOrder = task.order;
-            setCurrentOrder(prevOrder => prevOrder - 0.5);
+            setCurrentOrder(prevOrder => prevOrder - 1);
             return { ...task, order: 0 };
           }
         }
@@ -161,11 +161,16 @@ const Pref: React.FC = () => {
 
         {errorMessage && <div className={styles.error}>{errorMessage}</div>}
         
-        <Link href={`/events/${eventId}`}>
-          <button onClick={handleSubmit} className={styles.button}>
+        {allSelected ? 
+        <Link href={allSelected ? `/events/${eventId}` : `/events/${eventId}/pref`}>
+          <button onClick={handleSubmit} className="btn regular-16 text-white rounded-full bg-[#4747ff]">
             Proceed
           </button>
-        </Link>
+        </Link> : 
+          <button onClick={handleSubmit} className=" btn regular-16 text-white rounded-full bg-[#4747ff]">
+            Proceed
+          </button>
+        }
         
       </main>
     </div>
