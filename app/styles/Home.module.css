@@ -34,6 +34,7 @@
 
 .logoText {
   transition: opacity 0.3s ease, transform 0.3s ease;
+  color: black;
 }
 
 .header.scrolled .logoText {
@@ -116,6 +117,7 @@
   font-size: 22px;
   font-weight: 550;
   margin-bottom: 10px;
+  color: black;
 }
   
 .cardImage {

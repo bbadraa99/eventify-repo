@@ -52,7 +52,7 @@ const Header: React.FC = () => {
       </Link>
       { user? 
         <div className='flex flex-row center space-x-4'>
-          <p>{user.email}</p>
+          <p className='text-black regular-16'>{user.email}</p>
           <Link href="/myevents">
             <button className="btn regular-16 text-black border-2 bg-transparent hover:bg-gray-300">My Events</button>
           </Link> 

@@ -13,8 +13,6 @@ export default function MyEventsPage() {
     const [user] = useAuthState(auth);
     const [userEvents, setUserEvents] = useState<MyEventType[]>([]);
     const [invitedEvents, setInvitedEvents] = useState<MyEventType[]>([]);
-    const [isAcceptedRequest, setIsAcceptedRequest] = useState<boolean>(false);
-    const [isGuest, setIsGuest] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchUserEvents = async () => {
@@ -61,39 +59,43 @@ export default function MyEventsPage() {
             <Header />
             <div className="flex flex-col items-center">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-full sm:max-w-4xl mb-48 mt-16">
-                    <h1 className="text-xl font-bold mb-4">Events</h1>
+                    <h1 className="text-xl font-bold mb-4 text-black">Events</h1>
                     <div className="flex flex-wrap justify-between">
                         <section className="w-full sm:w-1/2 pr-4 sm:pr-8">
-                            <h2 className="text-lg font-semibold mb-2">Organized by You</h2>
+                            <h2 className="text-lg font-semibold mb-2 text-black">Organized by You</h2>
                             <ul className="list-none pl-0">
                                 {userEvents.map((event) => { 
+                                    var accept = false;
+                                    var isGuest = false;
                                     // check whether the event is accepted by the user
                                     if (user && event.admin.email === user.email) {
-                                        setIsAcceptedRequest(event.admin.accepted);
-                                        setIsGuest(false);
+                                        accept = event.admin.accepted;
+                                        isGuest = false;
                                     }
                                     return (
-                                    <MyEvent key={event.id} event={event} isAccepted ={isAcceptedRequest} isGuest={isGuest}/>
+                                    <MyEvent key={event.id} event={event} isAccepted ={accept} isGuest={isGuest}/>
                                     )
                                 })}
                             </ul>
                         </section>
                         <section className="w-full sm:w-1/2 pl-4 sm:pl-8 mt-8 sm:mt-0">
-                            <h2 className="text-lg font-semibold mb-2">You are invited</h2>
+                            <h2 className="text-lg font-semibold mb-2 text-black">You are invited</h2>
                             <ul className="list-none pl-0">
                                 {invitedEvents.map((event) => {
                                     // check whether the event is accepted by the guests
-                                    if (user && event.guests) {
+                                    var accept = false;
+                                    var isGuest = false;
+                                    if (user) {
                                         for (const guest of event.guests) {
                                             if (guest.email === user.email?.toString()) {
-                                                setIsAcceptedRequest(guest.accepted);
-                                                setIsGuest(true);
+                                                accept = guest.accepted;
+                                                isGuest = true;
                                                 break;
                                             }
                                         }
                                     }
                                     return (
-                                    <MyEvent key={event.id} event={event} isAccepted ={isAcceptedRequest} isGuest={isGuest}/>
+                                    <MyEvent key={event.id} event={event} isAccepted ={accept} isGuest={isGuest}/>
                                     )
                                 })}
                             </ul>

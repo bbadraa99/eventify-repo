@@ -96,7 +96,7 @@ function EventForm(props: PropElements){
 
                 <div className={styles.field}>
                 <label htmlFor="date">Date</label>
-                <input ref = {eventDateRef} className={styles.textarea} type="datetime-local" id="date" name="date" />
+                <input ref = {eventDateRef} className="text-black bg-white" type="datetime-local" id="date" name="date" />
                 </div>
 
                 <div className={styles.field}>
